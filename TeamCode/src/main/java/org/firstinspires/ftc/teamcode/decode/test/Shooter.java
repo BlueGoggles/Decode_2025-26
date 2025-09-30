@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.teamcode.decode;
+package org.firstinspires.ftc.teamcode.decode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "The Shooter", group = "BackstageRedAuton")
 public class Shooter extends LinearOpMode {

@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.decode;
+package org.firstinspires.ftc.teamcode.decode.test;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 

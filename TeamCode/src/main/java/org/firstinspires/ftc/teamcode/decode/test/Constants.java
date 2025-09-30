@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.decode;
+package org.firstinspires.ftc.teamcode.decode.test;
 
 public interface Constants {
     String DEVICE_FRONT_LEFT = "frontLeft";
