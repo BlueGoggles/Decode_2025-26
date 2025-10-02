@@ -27,11 +27,11 @@ public class Shooter {
     private DcMotorEx rightWheel;
 
     public Shooter(HardwareMap hardwareMap) {
-        leftWheel = hardwareMap.get(DcMotorEx.class, "leftWheelShooter");
+        leftWheel = hardwareMap.get(DcMotorEx.class, "bottomShooter");
         leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        rightWheel = hardwareMap.get(DcMotorEx.class, "rightWheelShooter");
+        rightWheel = hardwareMap.get(DcMotorEx.class, "topShooter");
         rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightWheel.setDirection(DcMotorSimple.Direction.FORWARD);
     }
@@ -42,8 +42,8 @@ public class Shooter {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
 //            if (!initialized) {
-                leftWheel.setPower(1.0);
-                rightWheel.setPower(1.0);
+                leftWheel.setPower(0.45);
+                rightWheel.setPower(0.45);
 //                initialized = true;
 //            }
 
