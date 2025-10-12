@@ -27,26 +27,21 @@ public class Shooter {
     private DcMotorEx rightWheel;
 
     public Shooter(HardwareMap hardwareMap) {
-        leftWheel = hardwareMap.get(DcMotorEx.class, "bottomShooter");
+        leftWheel = hardwareMap.get(DcMotorEx.class, "leftShooter");
         leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftWheel.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        rightWheel = hardwareMap.get(DcMotorEx.class, "topShooter");
+        rightWheel = hardwareMap.get(DcMotorEx.class, "rightShooter");
         rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightWheel.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public class StartShooter implements Action {
-//        private boolean initialized = false;
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-//            if (!initialized) {
-                leftWheel.setPower(0.45);
-                rightWheel.setPower(0.45);
-//                initialized = true;
-//            }
-
+            leftWheel.setPower(1.0);
+            rightWheel.setPower(1.0);
             return false;
         }
     }
@@ -56,16 +51,11 @@ public class Shooter {
     }
 
     public class StopShooter implements Action {
-//        private boolean initialized = false;
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-//            if (!initialized) {
-                leftWheel.setPower(0);
-                rightWheel.setPower(0);
-//                initialized = true;
-//            }
-
+            leftWheel.setPower(0);
+            rightWheel.setPower(0);
             return false;
         }
     }
