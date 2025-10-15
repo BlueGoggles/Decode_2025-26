@@ -23,6 +23,8 @@ public class FirstAuton  extends LinearOpMode {
         Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
+
+
         // make a Shooter instance
         Shooter shooter = new Shooter(hardwareMap);
 
@@ -45,7 +47,7 @@ public class FirstAuton  extends LinearOpMode {
 //        TrajectoryActionBuilder tab2 = drive.actionBuilder(initialPose)
 //                .lineToY(37)
 //                .setTangent(Math.toRadians(0))
-////                .lineToX(18)
+//                .lineToX(18)
 //                .waitSeconds(3)
 //                .setTangent(Math.toRadians(0))
 //                .lineToXSplineHeading(46, Math.toRadians(180))
