@@ -22,9 +22,11 @@ public class TrajectoryActions {
 
          TrajectoryActionBuilder sample1 = drive.actionBuilder(pose)
                  .setTangent(90)
-                 .lineToX(5)
-                 .lineToY(10);
-//                 .turn(Math.toRadians(90));
+                 .lineToX(10)
+                 .waitSeconds(3)
+                 .turn(Math.toRadians(90))
+                 .lineToY(20)
+                 ;
 
 
         return sample1.build();

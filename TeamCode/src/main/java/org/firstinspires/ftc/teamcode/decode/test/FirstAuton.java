@@ -84,7 +84,7 @@ public class FirstAuton  extends LinearOpMode {
          Actions.runBlocking(
                 new SequentialAction(
 //                        trajectoryActionChosen,
-                        shooter.startShooter()
+                        shooter.startShooter(1.0)
 //                        servo.moveServo(),
 //                        trajectoryActionCloseOut
                 )

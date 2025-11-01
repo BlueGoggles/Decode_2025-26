@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
@@ -20,6 +21,9 @@ public class FrontBlue extends LinearOpMode {
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         TrajectoryActions trajectoryActions = new TrajectoryActions(drive, initialPose);
         Action sampleAction = trajectoryActions.getSampleTrajectory();
+
+
+
 
         waitForStart();
 

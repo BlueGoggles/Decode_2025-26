@@ -38,16 +38,22 @@ public class Shooter {
 
     public class StartShooter implements Action {
 
+        final private double power;
+
+        public StartShooter(double power) {
+            this.power = power;
+        }
+
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            leftWheel.setPower(1.0);
-            rightWheel.setPower(1.0);
+            leftWheel.setPower(this.power);
+            rightWheel.setPower(this.power);
             return false;
         }
     }
 
-    public Action startShooter() {
-        return new StartShooter();
+    public Action startShooter(double power) {
+        return new StartShooter(power);
     }
 
     public class StopShooter implements Action {
