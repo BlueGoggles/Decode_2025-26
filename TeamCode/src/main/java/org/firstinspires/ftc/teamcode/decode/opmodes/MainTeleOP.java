@@ -272,7 +272,7 @@ public class MainTeleOP extends LinearOpMode {
                         Actions.runBlocking(
                                 new ParallelAction(
                                         outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_1),
-                                        shooter.startShooter(0.5)
+                                        shooter.startShooter(0.9)
 
                                 )
                         );
@@ -282,7 +282,7 @@ public class MainTeleOP extends LinearOpMode {
                         Actions.runBlocking(
                                 new ParallelAction(
                                         outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
-                                        shooter.startShooter(0.5)
+                                        shooter.startShooter(0.7)
                                 )
                         );
                     }
@@ -291,7 +291,7 @@ public class MainTeleOP extends LinearOpMode {
                         Actions.runBlocking(
                                 new ParallelAction(
                                         outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_3),
-                                        shooter.startShooter(0.5)
+                                        shooter.startShooter(0.6)
                                 )
                         );
                     }

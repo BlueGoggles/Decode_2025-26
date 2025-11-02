@@ -45,9 +45,17 @@ public class Shooter {
         }
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
+        public synchronized boolean run(@NonNull TelemetryPacket packet) {
+
             leftWheel.setPower(this.power);
             rightWheel.setPower(this.power);
+
+            try {
+                wait(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             return false;
         }
     }

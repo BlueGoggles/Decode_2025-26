@@ -23,8 +23,14 @@ public class IntakeMotor {
 
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet){
+        public synchronized boolean run(@NonNull TelemetryPacket packet){
             intakeMotor.setPower(0.75);
+
+            try {
+                wait(0);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
             return false;
         }

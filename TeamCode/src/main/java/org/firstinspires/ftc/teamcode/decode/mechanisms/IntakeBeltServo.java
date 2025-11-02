@@ -23,8 +23,15 @@ public class IntakeBeltServo {
 
     public class StartIntakeBeltServo implements Action {
         @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
+        public synchronized boolean run(@NonNull TelemetryPacket packet) {
             intakeBeltServo.setPosition(1.0);
+
+            try {
+                wait(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             return false;
         }
     }
