@@ -32,27 +32,24 @@ public class FrontBlue extends LinearOpMode {
         Shooter2 shooter2 = new Shooter2(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
         OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
-        TrajectoryActions trajectoryActions = new TrajectoryActions(drive.actionBuilder(initialPose));
-
-
-
+        TrajectoryActions trajectoryActions = new TrajectoryActions();
 
         waitForStart();
 
-        Actions.runBlocking(
-            new SequentialAction(
-                trajectoryActions.getTrajectory_1_1(),
-
-                shooter.startShooter(1.0),
-
-                trajectoryActions.getTrajectory_1_2(),
-
-                intakeMotor.startIntake(),
-                intakeBeltServo.startIntakeBeltServo(),
-
-                trajectoryActions.getTrajectory_1_1()
-            )
-        );
+//        Actions.runBlocking(
+//            new SequentialAction(
+//                    trajectoryActions.getTrajectory_1_1(),
+//
+//                    shooter.startShooter(1.0),
+//
+////                    trajectoryActions.getTrajectory_1_2(),
+//
+//                    intakeMotor.startIntake(),
+//                    intakeBeltServo.startIntakeBeltServo(),
+//
+////                    trajectoryActions.getTrajectory_1_3()
+//            )
+//        );
 
 
 

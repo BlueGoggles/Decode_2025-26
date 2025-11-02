@@ -50,11 +50,11 @@ public class Shooter {
             leftWheel.setPower(this.power);
             rightWheel.setPower(this.power);
 
-            try {
-                wait(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                wait(3000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
 
             return false;
         }

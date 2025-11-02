@@ -9,35 +9,43 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 public class TrajectoryActions {
 
-    TrajectoryActionBuilder builder;
+//    TrajectoryActionBuilder builder;
+//
+//    public TrajectoryActions(TrajectoryActionBuilder builder) {
+//        this.builder = builder;
+//    }
 
-    public TrajectoryActions(TrajectoryActionBuilder builder) {
-        this.builder = builder;
-    }
 
 
+     public Action getTrajectory_1_1(MecanumDrive drive, boolean initialPoseFlag){
 
-     public Action getTrajectory_1_1(){
+         Pose2d pose;
 
-         this.builder = this.builder.endTrajectory().fresh()
-                 .strafeToSplineHeading(new Vector2d(-5, 62), Math.toRadians(-45));
+         if (initialPoseFlag) {
+             pose = new Pose2d(0, 0, Math.toRadians(-90));
+         } else {
+             pose = drive.localizer.getPose();
+         }
 
-         return this.builder.build();
+         TrajectoryActionBuilder builder = drive.actionBuilder(pose)
+                 .strafeToSplineHeading(new Vector2d(-5, 64), Math.toRadians(-45));
+
+         return builder.build();
      }
 
-    public Action getTrajectory_1_2(){
-
-        this.builder = this.builder.endTrajectory().fresh()
-                .strafeToSplineHeading(new Vector2d(-10, 62), 135);
-
-        return builder.build();
-    }
-
-    public Action getTrajectory_1_3(){
-
-        this.builder = this.builder.endTrajectory().fresh()
-                 .lineToYSplineHeading(33, Math.toRadians(135));
-
-        return builder.build();
-    }
+//    public Action getTrajectory_1_2(){
+//
+//        this.builder = this.builder.endTrajectory().fresh()
+//                .strafeToSplineHeading(new Vector2d(-30, 58), 135);
+//
+//        return builder.build();
+//    }
+//
+//    public Action getTrajectory_1_3(){
+//
+//        this.builder = this.builder.endTrajectory().fresh()
+//                .strafeToSplineHeading(new Vector2d(-5, 64), Math.toRadians(-135));
+//
+//        return this.builder.build();
+//    }
 }

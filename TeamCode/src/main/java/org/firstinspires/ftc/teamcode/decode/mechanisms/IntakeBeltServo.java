@@ -26,11 +26,11 @@ public class IntakeBeltServo {
         public synchronized boolean run(@NonNull TelemetryPacket packet) {
             intakeBeltServo.setPosition(1.0);
 
-            try {
-                wait(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                wait(3000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
 
             return false;
         }

@@ -4,8 +4,11 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -19,6 +22,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @TeleOp(name = "Main Teleop", group = "robot")
 public class MainTeleOP extends LinearOpMode {
@@ -55,13 +59,16 @@ public class MainTeleOP extends LinearOpMode {
         boolean enableManualOverride;
         double teleOpSpeed;
 
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(-90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
         IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
         Shooter shooter = new Shooter(hardwareMap);
         Shooter2 shooter2 = new Shooter2(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
         OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
+        TrajectoryActions trajectoryActions = new TrajectoryActions();
+        IMU imu = initializeIMU(drive);
 
         // By default we don't want to allow the lead screw to run until it has been released.
         boolean allowLeadScrew = false;
@@ -72,10 +79,8 @@ public class MainTeleOP extends LinearOpMode {
         //ElapsedTime droneLauncherWaitTimer = new ElapsedTime();
 
 
-//        robot.initializeDroneLauncher();
-        sleep(400);
 
-        double shoulder_nudge = 0;
+        sleep(100);
 
         FL_Power = 0;
         FR_Power = 0;
@@ -89,24 +94,31 @@ public class MainTeleOP extends LinearOpMode {
         M = 0;
         B = 0;
         Z_ = 0;
-        KD = 0.003;
+        KD = 0.002;
         Kp = 0.024;
         Target_Angle = 0;
         Z__Max = 0.75;
         enableManualOverride = false;
         teleOpSpeed = 0.0;
-        drive.lazyImu.get().resetYaw();
+        imu.resetYaw();
+        boolean initialPoseFlag = true;
 
         waitForStart();
 
         if (opModeIsActive()) {
-            // Reset the timer to start after "Start" is pressed.
-            //droneLauncherWaitTimer.reset();
 
             while (opModeIsActive()) {
                 Joystick_X = -1 * gamepad1.right_stick_x;
                 Joystick_Y = -1 * gamepad1.right_stick_y;
                 Joystick_Z = gamepad1.left_stick_x;
+
+                telemetry.addData("Angle: ", imu.getRobotYawPitchRollAngles().getYaw());
+                telemetry.addData("Joystick_X: ", Joystick_X);
+                telemetry.addData("Joystick_Y: ", Joystick_Y);
+                telemetry.addData("Joystick_Z: ", Joystick_Z);
+
+                telemetry.update();
+
                 M = 1 / (1 - Deadband);
                 B = -Deadband / (1 - Deadband);
                 if (Math.abs(Joystick_X) > Deadband) {
@@ -124,9 +136,9 @@ public class MainTeleOP extends LinearOpMode {
                 } else {
                     Joystick_Z = 0;
                 }
-                Orientation2 = drive.lazyImu.get().getRobotYawPitchRollAngles();
+                Orientation2 = imu.getRobotYawPitchRollAngles();
                 Theta_Actual = Double.parseDouble(JavaUtil.formatNumber(Orientation2.getYaw(AngleUnit.DEGREES), 2));
-                Theta_Velocity = drive.lazyImu.get().getRobotAngularVelocity(AngleUnit.DEGREES);
+                Theta_Velocity = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
                 Speed = Math.sqrt(Math.pow(Joystick_Y, 2) + Math.pow(Joystick_X, 2));
                 Theta_Request = Math.atan2(Joystick_Y, Joystick_X) / Math.PI * 180;
                 Theta_Command = Theta_Request - (90 - Theta_Actual);
@@ -139,10 +151,6 @@ public class MainTeleOP extends LinearOpMode {
                 if (gamepad1.dpad_left) {
                     Target_Angle = 90;
                 }
-                if (gamepad1.y) {
-                    Target_Angle = -45;
-                }
-
                 if (gamepad1.dpad_down) {
                     if (Theta_Actual < 0) {
                         Target_Angle = -180;
@@ -164,7 +172,7 @@ public class MainTeleOP extends LinearOpMode {
                     Z_ = (Z__Max * (Z_ / Math.abs(Z_)));
                 }
 
-                if (enableManualOverride) {
+                if( enableManualOverride ) {
                     // Leave Joystick_Z alone.
                 } else {
                     Joystick_Z = -Z_;
@@ -177,6 +185,7 @@ public class MainTeleOP extends LinearOpMode {
                 FR_Power = (-Gain_X * Joystick_X + (Gain_Y * Joystick_Y - Gain_Z * Joystick_Z));
                 BL_Power = (Gain_X * Joystick_X - (Gain_Y * Joystick_Y + Gain_Z * Joystick_Z));
                 BR_Power = (Gain_X * Joystick_X + (Gain_Y * Joystick_Y - Gain_Z * Joystick_Z));
+
                 if (Math.abs(FR_Power) > Math.abs(FL_Power)) {
                     Max = Math.abs(FR_Power);
                 } else {
@@ -192,7 +201,7 @@ public class MainTeleOP extends LinearOpMode {
 //                if (gamepad1.left_trigger > Constants.ZERO_POWER) {
 //                    teleOpSpeed = Constants.TELEOP_MODIFIED_SPEED;
 //                } else {
-                teleOpSpeed = Constants.TELEOP_DEFAULT_SPEED;
+                    teleOpSpeed = Constants.TELEOP_DEFAULT_SPEED;
 //                }
 
                 if (Max > teleOpSpeed) {
@@ -209,22 +218,21 @@ public class MainTeleOP extends LinearOpMode {
                 drive.rightBack.setPower(BR_Power);
 
 
-                waitForStart();
-
-                while (opModeIsActive()) {
 
                     if (gamepad1.a) {
                         Actions.runBlocking(
-                                new ParallelAction(
+                                new SequentialAction(
                                         intakeMotor.startIntake(),
-                                        intakeBeltServo.startIntakeBeltServo()
+                                        intakeBeltServo.startIntakeBeltServo(),
+                                        trajectoryActions.getTrajectory_1_1(drive, initialPoseFlag)
                                 )
                         );
+                        initialPoseFlag = false;
                     }
 
                     if (gamepad1.b) {
                         Actions.runBlocking(
-                                new ParallelAction(
+                                new SequentialAction(
                                         intakeMotor.stopIntake(),
                                         intakeBeltServo.stopIntakeBeltServo()
 
@@ -297,10 +305,40 @@ public class MainTeleOP extends LinearOpMode {
                     }
 
 
-                }
 
+
+                telemetry.addData("Angle: ", imu.getRobotYawPitchRollAngles().getYaw());
+
+                telemetry.update();
 
             }
         }
     }
+
+    public IMU initializeIMU(MecanumDrive drive) {
+
+        drive.leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        drive.rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        drive.leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        drive.rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+        // Control Hub IMU Parameters
+//        RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection = RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
+//        RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection = RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
+//        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoFacingDirection, usbFacingDirection);
+
+        // Expansion Hub IMU Parameters
+        RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+        RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoFacingDirection, usbFacingDirection);
+
+        IMU.Parameters parameters = new IMU.Parameters(orientationOnRobot);
+
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        imu.initialize(parameters);
+        imu.resetYaw();
+
+        return  imu;
+    }
+
 }

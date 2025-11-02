@@ -26,11 +26,11 @@ public class IntakeMotor {
         public synchronized boolean run(@NonNull TelemetryPacket packet){
             intakeMotor.setPower(0.75);
 
-            try {
-                wait(0);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                wait(0);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
 
             return false;
         }
