@@ -9,41 +9,34 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 public class TrajectoryActions {
 
-    Pose2d pose;
-    MecanumDrive drive;
     TrajectoryActionBuilder builder;
 
-    public TrajectoryActions(MecanumDrive drive, Pose2d pose){
-        this.drive = drive;
-        this.pose = pose;
+    public TrajectoryActions(TrajectoryActionBuilder builder) {
+        this.builder = builder;
     }
 
 
 
      public Action getTrajectory_1_1(){
 
-         TrajectoryActionBuilder builder = drive.actionBuilder(pose)
-                 .strafeToSplineHeading(new Vector2d(5, 60), Math.toRadians(-45))
-                 ;
-//        this.builder = builder;
-        return builder.build();
+         this.builder = this.builder.endTrajectory().fresh()
+                 .strafeToSplineHeading(new Vector2d(-5, 62), Math.toRadians(-45));
+
+         return this.builder.build();
      }
 
     public Action getTrajectory_1_2(){
 
-        this.builder = builder
-//                .setTangent(Math.toRadians(0))
-                .strafeToSplineHeading(new Vector2d(-20, 60), 180)
-                ;
+        this.builder = this.builder.endTrajectory().fresh()
+                .strafeToSplineHeading(new Vector2d(-10, 62), 135);
 
         return builder.build();
     }
 
     public Action getTrajectory_1_3(){
 
-        TrajectoryActionBuilder builder = drive.actionBuilder(pose)
-                 .lineToYSplineHeading(33, Math.toRadians(135))
-                ;
+        this.builder = this.builder.endTrajectory().fresh()
+                 .lineToYSplineHeading(33, Math.toRadians(135));
 
         return builder.build();
     }
