@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.helper.Constants;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo_2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
@@ -24,8 +25,8 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
-@TeleOp(name = "Main Teleop", group = "robot")
-public class MainTeleOP extends LinearOpMode {
+@TeleOp(name = "Main Teleop_2", group = "robot")
+public class MainTeleOP_2 extends LinearOpMode {
 
 
     @Override
@@ -62,7 +63,7 @@ public class MainTeleOP extends LinearOpMode {
         Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(-90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
-        IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
+        IntakeBeltServo_2 intakeBeltServo = new IntakeBeltServo_2(hardwareMap);
         Shooter shooter = new Shooter(hardwareMap);
         Shooter2 shooter2 = new Shooter2(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
@@ -201,7 +202,7 @@ public class MainTeleOP extends LinearOpMode {
 //                if (gamepad1.left_trigger > Constants.ZERO_POWER) {
 //                    teleOpSpeed = Constants.TELEOP_MODIFIED_SPEED;
 //                } else {
-                    teleOpSpeed = Constants.TELEOP_DEFAULT_SPEED;
+                teleOpSpeed = Constants.TELEOP_DEFAULT_SPEED;
 //                }
 
                 if (Max > teleOpSpeed) {
@@ -219,51 +220,51 @@ public class MainTeleOP extends LinearOpMode {
 
 
 
-                    if (gamepad1.a) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        intakeMotor.startIntake(),
-                                        intakeBeltServo.startIntakeBeltServo()
-                                )
-                        );
-                    }
+                if (gamepad1.a) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    intakeMotor.startIntake(),
+                                    intakeBeltServo.startIntakeBeltServo()
+                            )
+                    );
+                }
 
-                    if (gamepad1.b) {
-                        Actions.runBlocking(
-                                new SequentialAction(
-                                        intakeMotor.stopIntake(),
-                                        intakeBeltServo.stopIntakeBeltServo()
+                if (gamepad1.b) {
+                    Actions.runBlocking(
+                            new SequentialAction(
+                                    intakeMotor.stopIntake(),
+                                    intakeBeltServo.stopIntakeBeltServo()
 
-                                )
-                        );
-                    }
+                            )
+                    );
+                }
 
-                    if (gamepad1.x) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        shooter.startShooter(1.0)
-                                )
+                if (gamepad1.x) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    shooter.startShooter(1.0)
+                            )
 
-                        );
-                    }
+                    );
+                }
 
-                    if (gamepad1.y) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        shooter.stopShooter()
-                                )
-                        );
-                    }
+                if (gamepad1.y) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    shooter.stopShooter()
+                            )
+                    );
+                }
 
-                    if (gamepad1.start) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        shooter2.startShooter2()
+                if (gamepad1.start) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    shooter2.startShooter2()
 //                                        kickerServo.startKickerServo()
-                                )
+                            )
 
-                        );
-                    }
+                    );
+                }
 
                 if (gamepad2.start) {
                     Actions.runBlocking(
@@ -275,14 +276,14 @@ public class MainTeleOP extends LinearOpMode {
                     );
                 }
 
-                    if (gamepad1.back) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        shooter2.stopShooter2()
+                if (gamepad1.back) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    shooter2.stopShooter2()
 //                                        kickerServo.stopKickerServo()
-                                )
-                        );
-                    }
+                            )
+                    );
+                }
 
                 if (gamepad2.back) {
                     Actions.runBlocking(
@@ -293,33 +294,33 @@ public class MainTeleOP extends LinearOpMode {
                     );
                 }
 
-                    if (gamepad1.left_bumper) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_1),
-                                        shooter.startShooter(0.9)
+                if (gamepad1.left_bumper) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_1),
+                                    shooter.startShooter(0.9)
 
-                                )
-                        );
-                    }
+                            )
+                    );
+                }
 
-                    if (gamepad1.right_bumper) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
-                                        shooter.startShooter(0.7)
-                                )
-                        );
-                    }
+                if (gamepad1.right_bumper) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
+                                    shooter.startShooter(0.7)
+                            )
+                    );
+                }
 
-                    if (gamepad1.left_trigger > 0.5) {
-                        Actions.runBlocking(
-                                new ParallelAction(
-                                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_3),
-                                        shooter.startShooter(0.6)
-                                )
-                        );
-                    }
+                if (gamepad1.left_trigger > 0.5) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_3),
+                                    shooter.startShooter(0.6)
+                            )
+                    );
+                }
 
 
                 if (gamepad2.a) {
