@@ -18,8 +18,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
+
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 public class Shooter {
@@ -27,13 +30,20 @@ public class Shooter {
     private DcMotorEx rightWheel;
 
     public Shooter(HardwareMap hardwareMap) {
+        VoltageSensor batteryVoltageSensor;
+        batteryVoltageSensor = hardwareMap.voltageSensor.iterator().next();
+
+        PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(20, 0.5, 5, 12);
+
         leftWheel = hardwareMap.get(DcMotorEx.class, "leftShooter");
         leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftWheel.setDirection(DcMotorSimple.Direction.FORWARD);
+        setPIDFCoefficients(leftWheel, MOTOR_VELO_PID, batteryVoltageSensor);
 
         rightWheel = hardwareMap.get(DcMotorEx.class, "rightShooter");
         rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        setPIDFCoefficients(rightWheel, MOTOR_VELO_PID, batteryVoltageSensor);
     }
 
     public class StartShooter implements Action {
@@ -84,5 +94,11 @@ public class Shooter {
 
     public DcMotorEx getRightWheel() {
         return rightWheel;
+    }
+
+    private void setPIDFCoefficients(DcMotorEx motor, PIDFCoefficients coefficients, VoltageSensor batteryVoltageSensor) {
+        motor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(
+                coefficients.p, coefficients.i, coefficients.d, coefficients.f * 12 / batteryVoltageSensor.getVoltage()
+        ));
     }
 }
