@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
@@ -23,7 +24,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 public class FrontBlue extends LinearOpMode {
 
     @Override
-    public void runOpMode(){
+    public synchronized void runOpMode() throws InterruptedException {
         Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(-90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
@@ -38,19 +39,51 @@ public class FrontBlue extends LinearOpMode {
 
 //        Actions.runBlocking(
 //            new SequentialAction(
-//                    trajectoryActions.getTrajectory_1_1(),
-//
-//                    shooter.startShooter(1.0),
-//
-////                    trajectoryActions.getTrajectory_1_2(),
-//
-//                    intakeMotor.startIntake(),
-//                    intakeBeltServo.startIntakeBeltServo(),
-//
-////                    trajectoryActions.getTrajectory_1_3()
+//                    trajectoryActions.getTrajectory_1_1(drive, true)
 //            )
 //        );
 
+        Actions.runBlocking(
+                new ParallelAction(
+                        intakeBeltServo.startIntakeBeltServo(),
+                        kickerServo.startKickerServo(),
+                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
+                        shooter.startShooter(0.65)
+                )
+        );
+//        telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
+//        telemetry.update();
+        wait(10000);
+        Actions.runBlocking(
+                new SequentialAction(
+
+                        trajectoryActions.getTrajectory_1_2(drive)
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        kickerServo.stopKickerServo(),
+                        shooter.stopShooter(),
+                        intakeMotor.startIntake(),
+                        intakeBeltServo.startIntakeBeltServo()
+                )
+        );
+//        telemetry.addData("Pose After 1_2: ", drive.localizer.getPose());
+//        telemetry.update();
+        wait(3000);
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, false)
+                )
+        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeBeltServo.startIntakeBeltServo(),
+                        kickerServo.startKickerServo(),
+                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
+                        shooter.startShooter(0.65)
+                )
+        );
 
 
     }

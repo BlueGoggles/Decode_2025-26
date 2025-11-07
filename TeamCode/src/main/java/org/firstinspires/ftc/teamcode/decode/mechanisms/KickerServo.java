@@ -21,7 +21,7 @@ public class KickerServo {
     public class StartKickerServo implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            kickerServo.setPosition(1.0);
+            kickerServo.setPosition(0);
             return false;
         }
     }

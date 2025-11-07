@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.decode.mechanisms;
 
 import androidx.annotation.NonNull;
 
-// RR-specific imports
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-
-// Non-RR imports
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -17,7 +14,7 @@ public class IntakeBeltServo {
 
     public IntakeBeltServo(HardwareMap hardwareMap) {
         intakeBeltServo = hardwareMap.get(Servo.class, "intakeBeltServo");
-        intakeBeltServo.setDirection(Servo.Direction.FORWARD);
+        intakeBeltServo.setDirection(Servo.Direction.REVERSE);
         intakeBeltServo.setPosition(Constants.SERVO_HOME_POSITION);
     }
 
