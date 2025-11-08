@@ -263,10 +263,12 @@ public final class MecanumDrive {
             maxPowerMag = Math.max(maxPowerMag, power.value());
         }
 
-        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag);
-        leftBack.setPower(wheelVels.leftBack.get(0) / maxPowerMag);
-        rightBack.setPower(wheelVels.rightBack.get(0) / maxPowerMag);
-        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag);
+        double speedControlFactor = 0.25;
+
+        leftFront.setPower(speedControlFactor * wheelVels.leftFront.get(0) / maxPowerMag);
+        leftBack.setPower(speedControlFactor * wheelVels.leftBack.get(0) / maxPowerMag);
+        rightBack.setPower(speedControlFactor * wheelVels.rightBack.get(0) / maxPowerMag);
+        rightFront.setPower(speedControlFactor * wheelVels.rightFront.get(0) / maxPowerMag);
     }
 
     public final class FollowTrajectoryAction implements Action {
