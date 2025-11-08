@@ -47,7 +47,14 @@ public class IntakeBeltServo {
         return new StopIntakeBeltServo();
     }
 
-//    public Servo getIntakeBeltServoServo() {
-//        return intakeBeltServo;
-//    }
+    public class ReverseIntakeBeltServo implements Action{
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            intakeBeltServo.setPosition(0);
+            return false;
+        }
+    }
+    public Action reverseIntakeBeltServo() {
+        return new ReverseIntakeBeltServo();
+    }
 }

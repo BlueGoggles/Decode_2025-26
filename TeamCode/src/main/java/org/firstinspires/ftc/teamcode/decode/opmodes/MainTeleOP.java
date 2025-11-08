@@ -19,17 +19,17 @@ import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerStopperServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
-@TeleOp(name = "Main Teleop", group = "robot")
+@TeleOp(name = "Main TeleOp", group = "DecodeTeleOp")
 public class MainTeleOP extends LinearOpMode {
 
-
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         double FL_Power;
         double FR_Power;
         double BL_Power;
@@ -59,16 +59,16 @@ public class MainTeleOP extends LinearOpMode {
         boolean enableManualOverride;
         double teleOpSpeed;
 
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(-90));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
         IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
         Shooter shooter = new Shooter(hardwareMap);
-        Shooter2 shooter2 = new Shooter2(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
         OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
         TrajectoryActions trajectoryActions = new TrajectoryActions();
         IMU imu = initializeIMU(drive);
+        KickerStopperServo kickerStopperServo = new KickerStopperServo(hardwareMap);
 
         // By default we don't want to allow the lead screw to run until it has been released.
         boolean allowLeadScrew = false;
@@ -218,6 +218,15 @@ public class MainTeleOP extends LinearOpMode {
                 drive.rightBack.setPower(BR_Power);
 
 
+                // This variable controls whether we are manually steering or auto steering.
+                if(gamepad1.back) {
+                    enableManualOverride = !enableManualOverride;
+                }
+
+                // Press this button to reset the yaw during Teleop. Only allow this to happen if we are in manual mode.
+                if (gamepad1.y && enableManualOverride) {
+                    imu.resetYaw();
+                }
 
                 // Setup buttons for actions below
 
@@ -242,6 +251,15 @@ public class MainTeleOP extends LinearOpMode {
                     );
                 }
 
+                if (gamepad1.right_trigger > 0.5) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    intakeMotor.reverseIntake(),
+                                    intakeBeltServo.reverseIntakeBeltServo()
+                            )
+                    );
+                }
+
                 if (gamepad1.b) {
                     Actions.runBlocking(
                             new SequentialAction(
@@ -260,6 +278,19 @@ public class MainTeleOP extends LinearOpMode {
                             new SequentialAction(
                                     outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
                                     shooter.startShooter(0.65)
+                            )
+                    );
+                    wait(500);
+                    Actions.runBlocking(
+                            new SequentialAction(
+
+                            )
+                    );
+                    wait(500);
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    intakeMotor.startIntake(),
+                                    intakeBeltServo.startIntakeBeltServo()
                             )
                     );
                 }

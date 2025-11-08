@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "FrontBlue", group = "Autonomous")
+@Autonomous(name = "FrontBlue", group = "DecodeAutonomous")
 public class FrontBlue extends LinearOpMode {
 
     @Override

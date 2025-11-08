@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.SequentialAction;
 
 // Non-RR imports
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
         import org.firstinspires.ftc.teamcode.MecanumDrive;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 
 @Config
 @Autonomous(name = "First Test Auton", group = "Autonomous")
+@Disabled
 public class FirstAuton  extends LinearOpMode {
 
     @Override

@@ -41,6 +41,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumLocalizerInputsMessage;
@@ -263,12 +264,10 @@ public final class MecanumDrive {
             maxPowerMag = Math.max(maxPowerMag, power.value());
         }
 
-        double speedControlFactor = 0.25;
-
-        leftFront.setPower(speedControlFactor * wheelVels.leftFront.get(0) / maxPowerMag);
-        leftBack.setPower(speedControlFactor * wheelVels.leftBack.get(0) / maxPowerMag);
-        rightBack.setPower(speedControlFactor * wheelVels.rightBack.get(0) / maxPowerMag);
-        rightFront.setPower(speedControlFactor * wheelVels.rightFront.get(0) / maxPowerMag);
+        leftFront.setPower(Constants.SPEED_CONTROL_FACTOR * wheelVels.leftFront.get(0) / maxPowerMag);
+        leftBack.setPower(Constants.SPEED_CONTROL_FACTOR * wheelVels.leftBack.get(0) / maxPowerMag);
+        rightBack.setPower(Constants.SPEED_CONTROL_FACTOR * wheelVels.rightBack.get(0) / maxPowerMag);
+        rightFront.setPower(Constants.SPEED_CONTROL_FACTOR * wheelVels.rightFront.get(0) / maxPowerMag);
     }
 
     public final class FollowTrajectoryAction implements Action {

@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.decode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name = "The Shooter", group = "BackstageRedAuton")
+@Disabled
 public class Shooter extends LinearOpMode {
 
     protected RobotHardware robot = new RobotHardware(this);

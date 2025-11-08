@@ -24,6 +24,7 @@ public class IntakeMotor {
 
         @Override
         public synchronized boolean run(@NonNull TelemetryPacket packet){
+            intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             intakeMotor.setPower(0.75);
 
 //            try {
@@ -48,7 +49,17 @@ public class IntakeMotor {
     }
     public  Action stopIntake(){return new StopIntake();}
 
-//    public DcMotorEx getIntakeMotor(){return intakeMotor;}
+    public class ReverseIntake implements Action{
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet){
+            intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            intakeMotor.setPower(0.4);
+
+            return false;
+        }
+    }
+    public Action reverseIntake(){return new ReverseIntake();}
 
 
 }
