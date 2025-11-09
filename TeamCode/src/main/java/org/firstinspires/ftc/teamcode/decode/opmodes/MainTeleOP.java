@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.helper.Constants;
+import org.firstinspires.ftc.teamcode.decode.helper.Utility;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
@@ -25,11 +26,11 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
-@TeleOp(name = "Main TeleOp", group = "DecodeTeleOp")
+@TeleOp(name = "Main TeleOp", group = "A_DecodeTeleOp")
 public class MainTeleOP extends LinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public synchronized void runOpMode() throws InterruptedException {
         double FL_Power;
         double FR_Power;
         double BL_Power;
@@ -66,9 +67,10 @@ public class MainTeleOP extends LinearOpMode {
         Shooter shooter = new Shooter(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
         OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
+        KickerStopperServo kickerStopperServo = new KickerStopperServo(hardwareMap);
+
         TrajectoryActions trajectoryActions = new TrajectoryActions();
         IMU imu = initializeIMU(drive);
-        KickerStopperServo kickerStopperServo = new KickerStopperServo(hardwareMap);
 
         // By default we don't want to allow the lead screw to run until it has been released.
         boolean allowLeadScrew = false;
@@ -111,13 +113,6 @@ public class MainTeleOP extends LinearOpMode {
                 Joystick_X = -1 * gamepad1.right_stick_x;
                 Joystick_Y = -1 * gamepad1.right_stick_y;
                 Joystick_Z = gamepad1.left_stick_x;
-
-                telemetry.addData("Angle: ", imu.getRobotYawPitchRollAngles().getYaw());
-                telemetry.addData("Joystick_X: ", Joystick_X);
-                telemetry.addData("Joystick_Y: ", Joystick_Y);
-                telemetry.addData("Joystick_Z: ", Joystick_Z);
-
-                telemetry.update();
 
                 M = 1 / (1 - Deadband);
                 B = -Deadband / (1 - Deadband);
@@ -254,6 +249,8 @@ public class MainTeleOP extends LinearOpMode {
                 if (gamepad1.right_trigger > 0.5) {
                     Actions.runBlocking(
                             new ParallelAction(
+                                    shooter.stopShooter(),
+                                    kickerServo.stopKickerServo(),
                                     intakeMotor.reverseIntake(),
                                     intakeBeltServo.reverseIntakeBeltServo()
                             )
@@ -274,23 +271,32 @@ public class MainTeleOP extends LinearOpMode {
                 // GamePad 2 actions
 
                 if (gamepad2.b) {
-                    Actions.runBlocking(
-                            new SequentialAction(
-                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
-                                    shooter.startShooter(0.65)
-                            )
-                    );
-                    wait(500);
-                    Actions.runBlocking(
-                            new SequentialAction(
+                    Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo);
+                }
 
+                if (gamepad2.a) {
+                    Actions.runBlocking(
+                            new SequentialAction(
+                                    shooter.stopShooter(),
+                                    intakeMotor.stopIntake(),
+                                    intakeBeltServo.stopIntakeBeltServo(),
+                                    kickerServo.stopKickerServo()
                             )
                     );
-                    wait(500);
+                }
+
+                if (gamepad2.right_trigger > 0.5) {
                     Actions.runBlocking(
                             new ParallelAction(
-                                    intakeMotor.startIntake(),
-                                    intakeBeltServo.startIntakeBeltServo()
+                                    shooter.adjustShooterSpeed(true)
+                            )
+                    );
+                }
+
+                if (gamepad2.left_trigger > 0.5) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    shooter.adjustShooterSpeed(false)
                             )
                     );
                 }
@@ -307,7 +313,7 @@ public class MainTeleOP extends LinearOpMode {
                 if (gamepad2.right_bumper) {
                     Actions.runBlocking(
                             new ParallelAction(
-                                    kickerServo.startKickerServo()
+                                    kickerServo.startKickerServo(0.25)
                             )
 
                     );
@@ -321,10 +327,28 @@ public class MainTeleOP extends LinearOpMode {
                     );
                 }
 
+                if (gamepad2.start) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    outputAngleServo.adjustOutputAngle(true)
+                            )
+                    );
+                }
+
+                if (gamepad2.back) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    outputAngleServo.adjustOutputAngle(false)
+                            )
+                    );
+                }
 
 
+                telemetry.addData("Shooter Velocity: ", shooter.getLeftWheel().getVelocity());
+                telemetry.addData("Output Angle Position: ", outputAngleServo.getOutputAngleServo().getPosition());
+                telemetry.addData("Kicker Position: ", kickerServo.getKickerServo().getPosition());
+                telemetry.addData("Current Pose: ", drive.localizer.getPose());
 
-                telemetry.addData("Angle: ", imu.getRobotYawPitchRollAngles().getYaw());
                 telemetry.update();
 
             }

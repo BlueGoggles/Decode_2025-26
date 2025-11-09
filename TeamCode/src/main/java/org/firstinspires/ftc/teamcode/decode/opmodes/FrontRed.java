@@ -19,12 +19,12 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "FrontBlue", group = "DecodeAutonomous")
-public class FrontBlue extends LinearOpMode {
+@Autonomous(name = "FrontRed", group = "DecodeAutonomous")
+public class FrontRed extends LinearOpMode {
 
     @Override
     public synchronized void runOpMode() throws InterruptedException {
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(0));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
         IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);

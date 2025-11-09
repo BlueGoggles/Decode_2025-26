@@ -24,6 +24,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 
 public class Shooter {
     private DcMotorEx leftWheel;
@@ -36,12 +37,12 @@ public class Shooter {
         PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(20, 0.5, 5, 12);
 
         leftWheel = hardwareMap.get(DcMotorEx.class, "leftShooter");
-        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftWheel.setDirection(DcMotorSimple.Direction.FORWARD);
         setPIDFCoefficients(leftWheel, MOTOR_VELO_PID, batteryVoltageSensor);
 
         rightWheel = hardwareMap.get(DcMotorEx.class, "rightShooter");
-        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         setPIDFCoefficients(rightWheel, MOTOR_VELO_PID, batteryVoltageSensor);
     }
@@ -51,20 +52,17 @@ public class Shooter {
         final private double power;
 
         public StartShooter(double power) {
+            if (power == 0) {
+                power = Constants.DEFAULT_SHOOTER_VELOCITY;
+            }
             this.power = power;
         }
 
         @Override
         public synchronized boolean run(@NonNull TelemetryPacket packet) {
 
-            leftWheel.setPower(this.power);
-            rightWheel.setPower(this.power);
-
-//            try {
-//                wait(3000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            leftWheel.setVelocity(this.power);
+            rightWheel.setVelocity(this.power);
 
             return false;
         }
@@ -74,18 +72,48 @@ public class Shooter {
         return new StartShooter(power);
     }
 
+    public Action startShooter() {
+        return new StartShooter(leftWheel.getVelocity());
+    }
+
     public class StopShooter implements Action {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            leftWheel.setPower(0);
-            rightWheel.setPower(0);
+            leftWheel.setVelocity(0);
+            rightWheel.setVelocity(0);
             return false;
         }
     }
 
     public Action stopShooter() {
         return new StopShooter();
+    }
+
+    public class AdjustShooterSpeed implements Action {
+
+        boolean increaseFlag;
+
+        public AdjustShooterSpeed(boolean increaseFlag) {
+            this.increaseFlag = increaseFlag;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            double currentSpeed = leftWheel.getVelocity();
+            if(this.increaseFlag) {
+                leftWheel.setVelocity(currentSpeed + Constants.CHANGE_SHOOTER_VELOCITY_BY);
+                rightWheel.setVelocity(currentSpeed + Constants.CHANGE_SHOOTER_VELOCITY_BY);
+            } else {
+                leftWheel.setVelocity(currentSpeed - Constants.CHANGE_SHOOTER_VELOCITY_BY);
+                rightWheel.setVelocity(currentSpeed - Constants.CHANGE_SHOOTER_VELOCITY_BY);
+            }
+            return false;
+        }
+    }
+
+    public Action adjustShooterSpeed(boolean increaseFlag) {
+        return new AdjustShooterSpeed(increaseFlag);
     }
 
     public DcMotorEx getLeftWheel() {

@@ -16,7 +16,7 @@ public class KickerStopperServo {
     public KickerStopperServo(HardwareMap hardwareMap) {
         kickerStopperServo = hardwareMap.get(Servo.class, "kickerStopperServo");
         kickerStopperServo.setDirection(Servo.Direction.REVERSE);
-        kickerStopperServo.setPosition(Constants.SERVO_HOME_POSITION);
+        kickerStopperServo.setPosition(0);
     }
 
     public class KickerStopperServoOn implements Action {
@@ -35,7 +35,7 @@ public class KickerStopperServo {
     public class KickerStopperServoOff implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            kickerStopperServo.setPosition(0);
+            kickerStopperServo.setPosition(0.3);
             return false;
         }
     }

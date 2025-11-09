@@ -14,20 +14,27 @@ public class KickerServo {
 
     public KickerServo(HardwareMap hardwareMap) {
         kickerServo = hardwareMap.get(Servo.class, "kickerServo");
-        kickerServo.setDirection(Servo.Direction.REVERSE);
-        kickerServo.setPosition(Constants.SERVO_HOME_POSITION);
+        kickerServo.setDirection(Servo.Direction.FORWARD);
+        kickerServo.setPosition(Constants.KICKER_SERVO_HOME_POSITION);
     }
 
     public class StartKickerServo implements Action {
+
+        double position;
+
+        public StartKickerServo(double position) {
+            this.position = position;
+        }
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            kickerServo.setPosition(0);
+
+            kickerServo.setPosition(this.position);
             return false;
         }
     }
-    public Action startKickerServo() {
+    public Action startKickerServo(double position) {
 
-        return new StartKickerServo();
+        return new StartKickerServo(position);
     }
 
     public class StopKickerServo implements Action{
@@ -39,5 +46,9 @@ public class KickerServo {
     }
     public Action stopKickerServo() {
         return new StopKickerServo();
+    }
+
+    public Servo getKickerServo() {
+        return kickerServo;
     }
 }
