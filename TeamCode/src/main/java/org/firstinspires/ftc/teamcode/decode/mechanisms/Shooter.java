@@ -59,7 +59,10 @@ public class Shooter {
         }
 
         @Override
-        public synchronized boolean run(@NonNull TelemetryPacket packet) {
+        public boolean run(@NonNull TelemetryPacket packet) {
+
+            leftWheel.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
 
             leftWheel.setVelocity(this.power);
             rightWheel.setVelocity(this.power);
@@ -100,6 +103,9 @@ public class Shooter {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+            leftWheel.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+
             double currentSpeed = leftWheel.getVelocity();
             if(this.increaseFlag) {
                 leftWheel.setVelocity(currentSpeed + Constants.CHANGE_SHOOTER_VELOCITY_BY);
@@ -114,6 +120,24 @@ public class Shooter {
 
     public Action adjustShooterSpeed(boolean increaseFlag) {
         return new AdjustShooterSpeed(increaseFlag);
+    }
+
+    public class ReverseShooter implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            leftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightWheel.setDirection(DcMotorSimple.Direction.FORWARD);
+
+            leftWheel.setVelocity(Constants.DEFAULT_SHOOTER_VELOCITY);
+            rightWheel.setVelocity(Constants.DEFAULT_SHOOTER_VELOCITY);
+
+            return false;
+        }
+    }
+
+    public Action reverseShooter() {
+        return new ReverseShooter();
     }
 
     public DcMotorEx getLeftWheel() {

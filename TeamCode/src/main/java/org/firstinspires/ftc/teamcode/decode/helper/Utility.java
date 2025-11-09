@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
@@ -46,6 +47,24 @@ public class Utility {
         Actions.runBlocking(
                 new SequentialAction(
                         kickerServo.startKickerServo(Constants.KICKER_SERVO_HOME_POSITION)
+                )
+        );
+    }
+
+    public static void drive(MecanumDrive drive, double power) {
+        drive.leftFront.setPower(0.18);
+        drive.rightFront.setPower(0.18);
+        drive.leftBack.setPower(0.18);
+        drive.rightBack.setPower(0.18);
+    }
+
+    public static void autonIntake(Shooter shooter, IntakeMotor intakeMotor, IntakeBeltServo intakeBeltServo, KickerServo kickerServo) {
+        Actions.runBlocking(
+                new SequentialAction(
+                        kickerServo.stopKickerServo(),
+                        shooter.stopShooter(),
+                        intakeMotor.startIntake(),
+                        intakeBeltServo.startIntakeBeltServo()
                 )
         );
     }

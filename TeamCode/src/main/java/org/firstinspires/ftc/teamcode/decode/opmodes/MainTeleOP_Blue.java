@@ -23,11 +23,10 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerStopperServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter2;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
-@TeleOp(name = "Main TeleOp", group = "A_DecodeTeleOp")
-public class MainTeleOP extends LinearOpMode {
+@TeleOp(name = "Main TeleOp - Blue", group = "DecodeTeleOp")
+public class MainTeleOP_Blue extends LinearOpMode {
 
     @Override
     public synchronized void runOpMode() throws InterruptedException {
@@ -100,7 +99,7 @@ public class MainTeleOP extends LinearOpMode {
         Kp = 0.024;
         Target_Angle = 0;
         Z__Max = 0.75;
-        enableManualOverride = false;
+        enableManualOverride = true;
         teleOpSpeed = 0.0;
         imu.resetYaw();
         boolean initialPoseFlag = true;
@@ -257,15 +256,15 @@ public class MainTeleOP extends LinearOpMode {
                     );
                 }
 
-                if (gamepad1.b) {
-                    Actions.runBlocking(
-                            new SequentialAction(
-                                    trajectoryActions.getTrajectory_1_1(drive, initialPoseFlag),
-                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2)
-                            )
-                    );
-                    initialPoseFlag = false;
-                }
+//                if (gamepad1.b) {
+//                    Actions.runBlocking(
+//                            new SequentialAction(
+//                                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 3, 69, -52, initialPoseFlag),
+//                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2)
+//                            )
+//                    );
+//                    initialPoseFlag = false;
+//                }
 
 
                 // GamePad 2 actions
@@ -305,6 +304,15 @@ public class MainTeleOP extends LinearOpMode {
                     Actions.runBlocking(
                             new ParallelAction(
                                     shooter.stopShooter()
+                            )
+                    );
+                }
+
+                if (gamepad2.y) {
+                    Actions.runBlocking(
+                            new ParallelAction(
+                                    shooter.reverseShooter(),
+                                    intakeBeltServo.reverseIntakeBeltServo()
                             )
                     );
                 }
