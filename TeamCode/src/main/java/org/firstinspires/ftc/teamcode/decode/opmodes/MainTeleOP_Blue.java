@@ -249,7 +249,7 @@ public class MainTeleOP_Blue extends LinearOpMode {
                     Actions.runBlocking(
                             new ParallelAction(
                                     shooter.stopShooter(),
-                                    kickerServo.stopKickerServo(),
+//                                    kickerServo.stopKickerServo(),
                                     intakeMotor.reverseIntake(),
                                     intakeBeltServo.reverseIntakeBeltServo()
                             )
@@ -270,7 +270,7 @@ public class MainTeleOP_Blue extends LinearOpMode {
                 // GamePad 2 actions
 
                 if (gamepad2.b) {
-                    Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo);
+                    Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
                 }
 
                 if (gamepad2.a) {
@@ -278,8 +278,8 @@ public class MainTeleOP_Blue extends LinearOpMode {
                             new SequentialAction(
                                     shooter.stopShooter(),
                                     intakeMotor.stopIntake(),
-                                    intakeBeltServo.stopIntakeBeltServo(),
-                                    kickerServo.stopKickerServo()
+                                    intakeBeltServo.stopIntakeBeltServo()
+//                                    kickerServo.stopKickerServo()
                             )
                     );
                 }
@@ -319,20 +319,20 @@ public class MainTeleOP_Blue extends LinearOpMode {
 
 
                 if (gamepad2.right_bumper) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    kickerServo.startKickerServo(0.25)
-                            )
-
-                    );
+//                    Actions.runBlocking(
+//                            new ParallelAction(
+//                                    kickerServo.startKickerServo(0.25)
+//                            )
+//
+//                    );
                 }
 
                 if (gamepad2.left_bumper) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    kickerServo.stopKickerServo()
-                            )
-                    );
+//                    Actions.runBlocking(
+//                            new ParallelAction(
+//                                    kickerServo.stopKickerServo()
+//                            )
+//                    );
                 }
 
                 if (gamepad2.start) {
@@ -354,7 +354,7 @@ public class MainTeleOP_Blue extends LinearOpMode {
 
                 telemetry.addData("Shooter Velocity: ", shooter.getLeftWheel().getVelocity());
                 telemetry.addData("Output Angle Position: ", outputAngleServo.getOutputAngleServo().getPosition());
-                telemetry.addData("Kicker Position: ", kickerServo.getKickerServo().getPosition());
+//                telemetry.addData("Kicker Position: ", kickerServo.getKickerServo().getPosition());
                 telemetry.addData("Current Pose: ", drive.localizer.getPose());
 
                 telemetry.update();

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.decode.helper.Utility;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
@@ -18,12 +19,12 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "FrontBlue", group = "DecodeAutonomous")
-public class FrontBlue extends LinearOpMode {
+@Autonomous(name = "Back Red - Position 3", group = "DecodeAutonomous")
+public class BackRed_3 extends LinearOpMode {
 
     @Override
     public synchronized void runOpMode() throws InterruptedException {
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(180));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
         IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
@@ -37,19 +38,26 @@ public class FrontBlue extends LinearOpMode {
         waitForStart();
 
         Actions.runBlocking(
-            new SequentialAction(
-                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, -7, 73, -52, true)
-            )
+                new SequentialAction(
+                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_3),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_3)
+                )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo);
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 2, -12, -135, true)
+                )
+        );
+
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_3, Constants.BLUE_LAUNCH_LOCATION_3);
 
         telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
         telemetry.update();
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 62,180, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -10, -47,0, false)
                 )
         );
         Utility.autonIntake(shooter, intakeMotor, intakeBeltServo, kickerServo);
@@ -63,12 +71,22 @@ public class FrontBlue extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73, -62, false)
+                        intakeBeltServo.stopIntakeBeltServo()
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo);
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 1, -13, -133, false)
+                )
+        );
 
-        wait(2000);
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_3, Constants.BLUE_LAUNCH_LOCATION_3);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -10, -67,0, false)
+                )
+        );
     }
 }

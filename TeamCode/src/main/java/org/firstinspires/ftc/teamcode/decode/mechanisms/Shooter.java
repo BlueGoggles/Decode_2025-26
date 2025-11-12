@@ -53,7 +53,7 @@ public class Shooter {
 
         public StartShooter(double power) {
             if (power == 0) {
-                power = Constants.DEFAULT_SHOOTER_VELOCITY;
+                power = Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2;
             }
             this.power = power;
         }
@@ -129,8 +129,8 @@ public class Shooter {
             leftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
             rightWheel.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            leftWheel.setVelocity(Constants.DEFAULT_SHOOTER_VELOCITY);
-            rightWheel.setVelocity(Constants.DEFAULT_SHOOTER_VELOCITY);
+            leftWheel.setVelocity(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2);
+            rightWheel.setVelocity(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2);
 
             return false;
         }

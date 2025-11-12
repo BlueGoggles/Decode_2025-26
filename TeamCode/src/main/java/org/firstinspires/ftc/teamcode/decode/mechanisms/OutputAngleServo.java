@@ -16,7 +16,7 @@ public class OutputAngleServo {
     public OutputAngleServo(HardwareMap hardwareMap){
         outputAngleServo = hardwareMap.get(Servo.class, "outputAngleServo");
         outputAngleServo.setDirection(Servo.Direction.FORWARD);
-        outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE);
+        outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_2);
     }
 
     public class OutputAngleAction implements Action {
@@ -29,11 +29,11 @@ public class OutputAngleServo {
         @Override
         public boolean run(@NonNull TelemetryPacket packet){
             if (launchLocation.equals(Constants.BLUE_LAUNCH_LOCATION_1)) {
-                outputAngleServo.setPosition(0.12);
+                outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_1);
             } else if (launchLocation.equals(Constants.BLUE_LAUNCH_LOCATION_2)) {
-                outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE);
+                outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_2);
             } else if(launchLocation.equals(Constants.BLUE_LAUNCH_LOCATION_3)) {
-                outputAngleServo.setPosition(0.14);
+                outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_3);
             } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_1)){
                outputAngleServo.setPosition(0);
             } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_2)){

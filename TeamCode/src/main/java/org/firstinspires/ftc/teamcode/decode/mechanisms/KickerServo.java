@@ -13,9 +13,9 @@ public class KickerServo {
     private Servo kickerServo;
 
     public KickerServo(HardwareMap hardwareMap) {
-        kickerServo = hardwareMap.get(Servo.class, "kickerServo");
-        kickerServo.setDirection(Servo.Direction.FORWARD);
-        kickerServo.setPosition(Constants.KICKER_SERVO_HOME_POSITION);
+//        kickerServo = hardwareMap.get(Servo.class, "kickerServo");
+//        kickerServo.setDirection(Servo.Direction.FORWARD);
+//        kickerServo.setPosition(Constants.KICKER_SERVO_HOME_POSITION);
     }
 
     public class StartKickerServo implements Action {

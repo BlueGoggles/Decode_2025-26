@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.decode.helper.Utility;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
@@ -18,8 +19,8 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "FrontRed", group = "DecodeAutonomous")
-public class FrontRed extends LinearOpMode {
+@Autonomous(name = "Front Red - Position 2", group = "DecodeAutonomous")
+public class FrontRed_2 extends LinearOpMode {
 
     @Override
     public synchronized void runOpMode() throws InterruptedException {
@@ -37,19 +38,26 @@ public class FrontRed extends LinearOpMode {
         waitForStart();
 
         Actions.runBlocking(
+                new SequentialAction(
+                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2)
+                )
+        );
+
+        Actions.runBlocking(
             new SequentialAction(
-                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, -7, 73, -128, true)
+                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 10, 64, -131, true)
             )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo);
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
 
         telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
         telemetry.update();
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 62,0, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, 65,0, false)
                 )
         );
         Utility.autonIntake(shooter, intakeMotor, intakeBeltServo, kickerServo);
@@ -63,11 +71,17 @@ public class FrontRed extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73,-118, false)
+                        intakeBeltServo.stopIntakeBeltServo()
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo);
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 13, 62,-121, false)
+                )
+        );
+
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
 
         wait(2000);
     }
