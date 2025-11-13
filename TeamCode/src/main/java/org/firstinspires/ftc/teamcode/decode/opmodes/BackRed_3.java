@@ -46,7 +46,7 @@ public class BackRed_3 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 2, -12, -135, true)
+                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 8, -23, -138, true)
                 )
         );
 
@@ -54,6 +54,12 @@ public class BackRed_3 extends LinearOpMode {
 
         telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
         telemetry.update();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -10, -23,0, false)
+                )
+        );
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -77,7 +83,7 @@ public class BackRed_3 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 1, -13, -133, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 7, -24, -136, false)
                 )
         );
 

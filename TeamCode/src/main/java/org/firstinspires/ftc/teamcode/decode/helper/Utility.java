@@ -50,6 +50,24 @@ public class Utility {
 //        );
     }
 
+    public static void shootTeleOp(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltServo intakeBeltServo, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
+        Actions.runBlocking(
+                new SequentialAction(
+                        outputAngleServo.setOutputAngle(launchLocation),
+                        shooter.startShooter(shooterSpeed)
+                )
+        );
+
+        opMode.wait(500);
+        Actions.runBlocking(
+                new ParallelAction(
+                        intakeMotor.startIntake(),
+                        intakeBeltServo.startIntakeBeltServo()
+                )
+        );
+
+    }
+
     public static void drive(MecanumDrive drive, double power) {
         drive.leftFront.setPower(0.18);
         drive.rightFront.setPower(0.18);

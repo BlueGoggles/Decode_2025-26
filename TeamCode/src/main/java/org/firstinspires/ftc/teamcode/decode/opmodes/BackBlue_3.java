@@ -57,6 +57,12 @@ public class BackBlue_3 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, -12,180, false)
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
                         trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, -47,180, false)
                 )
         );

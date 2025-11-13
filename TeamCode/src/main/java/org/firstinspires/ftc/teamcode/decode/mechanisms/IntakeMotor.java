@@ -62,4 +62,7 @@ public class IntakeMotor {
     public Action reverseIntake(){return new ReverseIntake();}
 
 
+    public DcMotorEx getIntakeMotor() {
+        return intakeMotor;
+    }
 }

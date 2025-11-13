@@ -57,4 +57,8 @@ public class IntakeBeltServo {
     public Action reverseIntakeBeltServo() {
         return new ReverseIntakeBeltServo();
     }
+
+    public Servo getIntakeBeltServo() {
+        return intakeBeltServo;
+    }
 }
