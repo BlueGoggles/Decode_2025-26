@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
-@TeleOp(name = "Main TeleOp - Blue", group = "DecodeTeleOp")
+@TeleOp(name = "Main TeleOp - Blue - Test", group = "DecodeTeleOp")
 @Disabled
 public class MainTeleOP_Blue extends LinearOpMode {
 
@@ -61,14 +61,8 @@ public class MainTeleOP_Blue extends LinearOpMode {
         boolean enableManualOverride;
         double teleOpSpeed;
 
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(0));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-        IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
-        IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
-        Shooter shooter = new Shooter(hardwareMap);
-        KickerServo kickerServo = new KickerServo(hardwareMap);
-        OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
-        KickerStopperServo kickerStopperServo = new KickerStopperServo(hardwareMap);
 
         TrajectoryActions trajectoryActions = new TrajectoryActions();
         IMU imu = initializeIMU(drive);
@@ -225,142 +219,36 @@ public class MainTeleOP_Blue extends LinearOpMode {
                 }
 
                 // Setup buttons for actions below
+                if (gamepad1.b) {
+                    telemetry.addData("1: ", initialPoseFlag);
+                    telemetry.update();
+                    wait(1000);
 
-                // GamePad 1 actions
-
-                if (gamepad1.right_bumper) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    intakeMotor.startIntake(),
-                                    intakeBeltServo.startIntakeBeltServo()
-                            )
-                    );
-                }
-
-                if (gamepad1.left_bumper) {
                     Actions.runBlocking(
                             new SequentialAction(
-                                    intakeMotor.stopIntake(),
-                                    intakeBeltServo.stopIntakeBeltServo()
-
+                                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 90, 3, 15,110, initialPoseFlag)
                             )
                     );
-                }
+                    telemetry.addData("2: ", initialPoseFlag);
+                    telemetry.update();
+                    wait(1000);
 
-                if (gamepad1.right_trigger > 0.5) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    shooter.stopShooter(),
-//                                    kickerServo.stopKickerServo(),
-                                    intakeMotor.reverseIntake(),
-                                    intakeBeltServo.reverseIntakeBeltServo()
-                            )
-                    );
-                }
+                    initialPoseFlag = false;
 
-//                if (gamepad1.b) {
-//                    Actions.runBlocking(
-//                            new SequentialAction(
-//                                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 3, 69, -52, initialPoseFlag),
-//                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2)
-//                            )
-//                    );
-//                    initialPoseFlag = false;
-//                }
+                    telemetry.addData("3: ", initialPoseFlag);
+                    telemetry.update();
+                    wait(1000);
 
-
-                // GamePad 2 actions
-
-                if (gamepad2.b) {
-                    Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
-                }
-
-                if (gamepad2.a) {
-                    Actions.runBlocking(
-                            new SequentialAction(
-                                    shooter.stopShooter(),
-                                    intakeMotor.stopIntake(),
-                                    intakeBeltServo.stopIntakeBeltServo()
-//                                    kickerServo.stopKickerServo()
-                            )
-                    );
-                }
-
-                if (gamepad2.right_trigger > 0.5) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    shooter.adjustShooterSpeed(true)
-                            )
-                    );
-                }
-
-                if (gamepad2.left_trigger > 0.5) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    shooter.adjustShooterSpeed(false)
-                            )
-                    );
-                }
-
-                if (gamepad2.x) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    shooter.stopShooter()
-                            )
-                    );
-                }
-
-                if (gamepad2.y) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    shooter.reverseShooter(),
-                                    intakeBeltServo.reverseIntakeBeltServo()
-                            )
-                    );
                 }
 
 
-                if (gamepad2.right_bumper) {
-//                    Actions.runBlocking(
-//                            new ParallelAction(
-//                                    kickerServo.startKickerServo(0.25)
-//                            )
-//
-//                    );
-                }
-
-                if (gamepad2.left_bumper) {
-//                    Actions.runBlocking(
-//                            new ParallelAction(
-//                                    kickerServo.stopKickerServo()
-//                            )
-//                    );
-                }
-
-                if (gamepad2.start) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    outputAngleServo.adjustOutputAngle(true)
-                            )
-                    );
-                }
-
-                if (gamepad2.back) {
-                    Actions.runBlocking(
-                            new ParallelAction(
-                                    outputAngleServo.adjustOutputAngle(false)
-                            )
-                    );
-                }
-
-
-                telemetry.addData("Shooter Velocity: ", shooter.getLeftWheel().getVelocity());
-                telemetry.addData("Output Angle Position: ", outputAngleServo.getOutputAngleServo().getPosition());
+//                telemetry.addData("Output Angle Position: ", outputAngleServo.getOutputAngleServo().getPosition());
 //                telemetry.addData("Kicker Position: ", kickerServo.getKickerServo().getPosition());
-                telemetry.addData("Current Pose: ", drive.localizer.getPose());
+//                telemetry.addData("Current Pose: ", drive.localizer.getPose());
 
+                telemetry.addData("4: ", initialPoseFlag);
                 telemetry.update();
-
+//                wait(1000);
             }
         }
     }

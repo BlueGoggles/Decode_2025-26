@@ -259,7 +259,7 @@ public class MainTeleOP_Red extends LinearOpMode {
 //                if (gamepad1.b) {
 //                    Actions.runBlocking(
 //                            new SequentialAction(
-//                                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 3, 69,-128, initialPoseFlag),
+//                                    trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, -7, 73, -52, initialPoseFlag),
 //                                    outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2)
 //                            )
 //                    );
@@ -346,10 +346,10 @@ public class MainTeleOP_Red extends LinearOpMode {
                 }
 
 
-//                telemetry.addData("Shooter Velocity: ", shooter.getLeftWheel().getVelocity());
-//                telemetry.addData("Output Angle Position: ", outputAngleServo.getOutputAngleServo().getPosition());
-////                telemetry.addData("Kicker Position: ", kickerServo.getKickerServo().getPosition());
-//                telemetry.addData("Current Pose: ", drive.localizer.getPose());
+                telemetry.addData("Shooter Velocity: ", shooter.getLeftWheel().getVelocity());
+                telemetry.addData("Output Angle Position: ", outputAngleServo.getOutputAngleServo().getPosition());
+//                telemetry.addData("Kicker Position: ", kickerServo.getKickerServo().getPosition());
+                telemetry.addData("Current Pose: ", drive.localizer.getPose());
 
                 telemetry.update();
 

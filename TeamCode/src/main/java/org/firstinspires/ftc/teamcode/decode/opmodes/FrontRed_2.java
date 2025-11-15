@@ -57,7 +57,7 @@ public class FrontRed_2 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, 65,-15, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 6, 64,-5, false)
                 )
         );
         Utility.autonIntake(shooter, intakeMotor, intakeBeltServo, kickerServo);
@@ -77,12 +77,16 @@ public class FrontRed_2 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 13, 62,-131, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, 64,-121, false)
                 )
         );
 
         Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
 
-        wait(2000);
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 7, 25,0, false)
+                )
+        );
     }
 }

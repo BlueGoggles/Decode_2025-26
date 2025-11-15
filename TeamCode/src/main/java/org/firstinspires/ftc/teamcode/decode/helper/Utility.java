@@ -27,7 +27,7 @@ public class Utility {
 //                        kickerStopperServo.kickerStopperServoOff()
 //                )
 //        );
-        opMode.wait(500);
+        opMode.wait(1000);
         Actions.runBlocking(
                 new ParallelAction(
                         intakeMotor.startIntake(),

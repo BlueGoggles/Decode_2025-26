@@ -39,8 +39,8 @@ public class FrontBlue_2 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_2),
-                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2)
+                        outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_2_AUTON),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON)
                 )
         );
 
@@ -50,14 +50,14 @@ public class FrontBlue_2 extends LinearOpMode {
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
 
         telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
         telemetry.update();
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 62,180, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 63,183, false)
                 )
         );
         Utility.autonIntake(shooter, intakeMotor, intakeBeltServo, kickerServo);
@@ -77,11 +77,11 @@ public class FrontBlue_2 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73, -62, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73, -58, false)
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
 
         Actions.runBlocking(
                 new SequentialAction(

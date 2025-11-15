@@ -34,8 +34,8 @@ public class OutputAngleServo {
                 outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_2);
             } else if(launchLocation.equals(Constants.BLUE_LAUNCH_LOCATION_3)) {
                 outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_3);
-            } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_1)){
-               outputAngleServo.setPosition(0);
+            } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_2_AUTON)){
+               outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_2_AUTON);
             } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_2)){
                 outputAngleServo.setPosition(0);
             } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_3)){
