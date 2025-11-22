@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.decode.opmodes;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -17,13 +16,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.helper.Constants;
-import org.firstinspires.ftc.teamcode.decode.helper.Utility;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerStopperServo;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @TeleOp(name = "Main TeleOp - Blue - Test", group = "DecodeTeleOp")

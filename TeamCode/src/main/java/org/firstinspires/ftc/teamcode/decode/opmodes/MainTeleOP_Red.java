@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.decode.helper.Utility;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerStopperServo;
@@ -62,7 +62,7 @@ public class MainTeleOP_Red extends LinearOpMode {
         Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
-        IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
+        IntakeBeltMotor intakeBeltMotor = new IntakeBeltMotor(hardwareMap);
         Shooter shooter = new Shooter(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
         OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
@@ -230,7 +230,7 @@ public class MainTeleOP_Red extends LinearOpMode {
                     Actions.runBlocking(
                             new ParallelAction(
                                     intakeMotor.startIntake(),
-                                    intakeBeltServo.startIntakeBeltServo()
+                                    intakeBeltMotor.startIntakeBeltMotor()
                             )
                     );
                 }
@@ -239,7 +239,7 @@ public class MainTeleOP_Red extends LinearOpMode {
                     Actions.runBlocking(
                             new SequentialAction(
                                     intakeMotor.stopIntake(),
-                                    intakeBeltServo.stopIntakeBeltServo()
+                                    intakeBeltMotor.stopIntakeBeltMotor()
 
                             )
                     );
@@ -251,7 +251,7 @@ public class MainTeleOP_Red extends LinearOpMode {
                                     shooter.stopShooter(),
 //                                    kickerServo.stopKickerServo(),
                                     intakeMotor.reverseIntake(),
-                                    intakeBeltServo.reverseIntakeBeltServo()
+                                    intakeBeltMotor.reverseIntakeBeltMotor()
                             )
                     );
                 }
@@ -270,22 +270,22 @@ public class MainTeleOP_Red extends LinearOpMode {
                 // GamePad 2 actions
 
                 if (gamepad2.b) {
-                    Utility.shootTeleOp(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
+                    Utility.shootTeleOp(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
                 }
 
                 if (gamepad2.a) {
-                    Utility.shootTeleOp(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_3, Constants.BLUE_LAUNCH_LOCATION_3);
+                    Utility.shootTeleOp(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_3, Constants.BLUE_LAUNCH_LOCATION_3);
                 }
 
                 if (gamepad2.x) {
-                    Utility.shootTeleOp(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1, Constants.BLUE_LAUNCH_LOCATION_1);
+                    Utility.shootTeleOp(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1, Constants.BLUE_LAUNCH_LOCATION_1);
                 }
 
                 if (gamepad2.y) {
                     Actions.runBlocking(
                             new ParallelAction(
                                     shooter.reverseShooter(),
-                                    intakeBeltServo.reverseIntakeBeltServo()
+                                    intakeBeltMotor.reverseIntakeBeltMotor()
                             )
                     );
                 }
@@ -316,7 +316,7 @@ public class MainTeleOP_Red extends LinearOpMode {
                             new ParallelAction(
                                 shooter.stopShooter(),
                                 intakeMotor.stopIntake(),
-                                intakeBeltServo.stopIntakeBeltServo()
+                                intakeBeltMotor.stopIntakeBeltMotor()
                             )
                     );
                 }

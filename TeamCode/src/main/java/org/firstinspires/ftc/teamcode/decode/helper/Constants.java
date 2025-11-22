@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.decode.helper;
 
 public interface Constants {
 
-    double SPEED_CONTROL_FACTOR = 0.25;
+    double SPEED_CONTROL_FACTOR = 1;
 
     int DEFAULT_SHOOTER_VELOCITY_POSITION_1 = 1600;
     int DEFAULT_SHOOTER_VELOCITY_POSITION_2 = 1240;

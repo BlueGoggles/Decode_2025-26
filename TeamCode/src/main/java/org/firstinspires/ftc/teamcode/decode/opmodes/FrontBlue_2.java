@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.helper.Constants;
 import org.firstinspires.ftc.teamcode.decode.helper.Utility;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerStopperServo;
@@ -27,7 +27,7 @@ public class FrontBlue_2 extends LinearOpMode {
         Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
-        IntakeBeltServo intakeBeltServo = new IntakeBeltServo(hardwareMap);
+        IntakeBeltMotor intakeBeltMotor = new IntakeBeltMotor(hardwareMap);
         Shooter shooter = new Shooter(hardwareMap);
         KickerServo kickerServo = new KickerServo(hardwareMap);
         OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
@@ -50,28 +50,20 @@ public class FrontBlue_2 extends LinearOpMode {
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
-
-        telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
-        telemetry.update();
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
 
         Actions.runBlocking(
                 new SequentialAction(
                         trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 63,183, false)
                 )
         );
-        Utility.autonIntake(shooter, intakeMotor, intakeBeltServo, kickerServo);
 
-        telemetry.addData("Pose After 1_2: ", drive.localizer.getPose());
-        telemetry.update();
-
-        Utility.drive(drive, 0.07);
-
-        wait(4000);
+        Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
 
         Actions.runBlocking(
                 new SequentialAction(
-                        intakeBeltServo.stopIntakeBeltServo()
+                        outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_2_AUTON),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON)
                 )
         );
 
@@ -81,11 +73,57 @@ public class FrontBlue_2 extends LinearOpMode {
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltServo, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 44,180, false)
+                )
+        );
+
+        Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_2_AUTON),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON)
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73, -58, false)
+                )
+        );
+
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
 
         Actions.runBlocking(
                 new SequentialAction(
                         trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 25,180, false)
+                )
+        );
+
+        Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_2_AUTON),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON)
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73, -58, false)
+                )
+        );
+
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -15, 63,183, false)
                 )
         );
     }

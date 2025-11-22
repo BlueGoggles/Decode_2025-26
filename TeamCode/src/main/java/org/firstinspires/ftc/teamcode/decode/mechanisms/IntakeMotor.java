@@ -25,7 +25,7 @@ public class IntakeMotor {
         @Override
         public synchronized boolean run(@NonNull TelemetryPacket packet){
             intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            intakeMotor.setPower(0.75);
+            intakeMotor.setPower(1);
 
 //            try {
 //                wait(0);

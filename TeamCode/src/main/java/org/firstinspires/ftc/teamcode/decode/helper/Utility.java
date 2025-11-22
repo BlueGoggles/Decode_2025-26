@@ -6,7 +6,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltServo;
+import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
@@ -14,28 +14,28 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 
 public class Utility {
 
-    public static void shoot(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltServo intakeBeltServo, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
-        Actions.runBlocking(
-                new SequentialAction(
-                        outputAngleServo.setOutputAngle(launchLocation),
-                        shooter.startShooter(shooterSpeed)
-                )
-        );
+    public static void shoot(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
+//        Actions.runBlocking(
+//                new SequentialAction(
+//                        outputAngleServo.setOutputAngle(launchLocation),
+//                        shooter.startShooter(shooterSpeed)
+//                )
+//        );
 //        wait(500);
 //        Actions.runBlocking(
 //                new SequentialAction(
 //                        kickerStopperServo.kickerStopperServoOff()
 //                )
 //        );
-        opMode.wait(1000);
+//        opMode.wait(500);
         Actions.runBlocking(
                 new ParallelAction(
                         intakeMotor.startIntake(),
-                        intakeBeltServo.startIntakeBeltServo()
+                        intakeBeltMotor.startIntakeBeltMotor()
 //                        kickerServo.startKickerServo(kickerServo.getKickerServo().getPosition() + 0.13)
                 )
         );
-        opMode.wait(7000);
+        opMode.wait(2000);
 //        Actions.runBlocking(
 //                new SequentialAction(
 //                        kickerServo.startKickerServo(kickerServo.getKickerServo().getPosition() + 0.1)
@@ -50,7 +50,7 @@ public class Utility {
 //        );
     }
 
-    public static void shootTeleOp(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltServo intakeBeltServo, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
+    public static void shootTeleOp(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
         Actions.runBlocking(
                 new SequentialAction(
                         outputAngleServo.setOutputAngle(launchLocation),
@@ -62,27 +62,40 @@ public class Utility {
         Actions.runBlocking(
                 new ParallelAction(
                         intakeMotor.startIntake(),
-                        intakeBeltServo.startIntakeBeltServo()
+                        intakeBeltMotor.startIntakeBeltMotor()
                 )
         );
 
     }
 
     public static void drive(MecanumDrive drive, double power) {
-        drive.leftFront.setPower(0.18);
-        drive.rightFront.setPower(0.18);
-        drive.leftBack.setPower(0.18);
-        drive.rightBack.setPower(0.18);
+        drive.leftFront.setPower(power);
+        drive.rightFront.setPower(power);
+        drive.leftBack.setPower(power);
+        drive.rightBack.setPower(power);
     }
 
-    public static void autonIntake(Shooter shooter, IntakeMotor intakeMotor, IntakeBeltServo intakeBeltServo, KickerServo kickerServo) {
+    public static void autonIntake(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive) throws InterruptedException {
         Actions.runBlocking(
                 new SequentialAction(
 //                        kickerServo.stopKickerServo(),
                         shooter.stopShooter(),
                         intakeMotor.startIntake(),
-                        intakeBeltServo.startIntakeBeltServo()
+                        intakeBeltMotor.startIntakeBeltMotor()
                 )
         );
+        Utility.drive(drive, 0.5);
+
+        opMode.wait(1500);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeBeltMotor.stopIntakeBeltMotor()
+                )
+        );
+
+
+
     }
+
 }
