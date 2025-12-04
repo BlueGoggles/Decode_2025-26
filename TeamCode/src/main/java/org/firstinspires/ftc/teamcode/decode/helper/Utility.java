@@ -61,11 +61,10 @@ public class Utility {
         opMode.wait(500);
         Actions.runBlocking(
                 new ParallelAction(
-                        intakeMotor.startIntake(),
-                        intakeBeltMotor.startIntakeBeltMotor()
+                        intakeMotor.startIntake()
                 )
         );
-
+        intakeBeltMotor.getIntakeBeltMotor().setPower(0.7);
     }
 
     public static void drive(MecanumDrive drive, double power) {
@@ -87,6 +86,29 @@ public class Utility {
         Utility.drive(drive, 0.5);
 
         opMode.wait(1500);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeBeltMotor.stopIntakeBeltMotor()
+                )
+        );
+
+
+
+    }
+
+    public static void autonIntakeForBack(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive) throws InterruptedException {
+        Actions.runBlocking(
+                new SequentialAction(
+//                        kickerServo.stopKickerServo(),
+                        shooter.stopShooter(),
+                        intakeMotor.startIntake(),
+                        intakeBeltMotor.startIntakeBeltMotor()
+                )
+        );
+        Utility.drive(drive, 0.5);
+
+        opMode.wait(1330);
 
         Actions.runBlocking(
                 new SequentialAction(
