@@ -21,7 +21,6 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
 @Autonomous(name = "Front Blue - Position 1", group = "DecodeAutonomous")
-@Disabled
 public class FrontBlue_1 extends LinearOpMode {
 
     @Override
@@ -41,8 +40,8 @@ public class FrontBlue_1 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        outputAngleServo.setOutputAngle(Constants.BLUE_LAUNCH_LOCATION_1),
-                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1)
+                        outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
+                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
                 )
         );
 
@@ -52,43 +51,31 @@ public class FrontBlue_1 extends LinearOpMode {
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1, Constants.BLUE_LAUNCH_LOCATION_1);
+        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
 
-//        telemetry.addData("Pose After 1_1: ", drive.localizer.getPose());
-//        telemetry.update();
-//
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 62,180, false)
-//                )
-//        );
-//        Utility.autonIntake(shooter, intakeMotor, intakeBeltMotor, kickerServo);
-//
-//        telemetry.addData("Pose After 1_2: ", drive.localizer.getPose());
-//        telemetry.update();
-//
-//        Utility.drive(drive, 0.07);
-//
-//        wait(4000);
-//
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        intakeBeltServo.stopIntakeBeltServo()
-//                )
-//        );
-//
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -11, 73, -62, false)
-//                )
-//        );
-//
-//        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2, Constants.BLUE_LAUNCH_LOCATION_2);
-//
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 25,180, false)
-//                )
-//        );
+        if (Constants.PICK_BALLS_LINE_3_FLAG) {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 25, 180, false)
+                    )
+            );
+
+            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
+
+            Actions.runBlocking(
+                    new SequentialAction(
+                            outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
+                            shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
+                    )
+            );
+
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, -5, 16, -70, false)
+                    )
+            );
+
+            Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
+        }
     }
 }

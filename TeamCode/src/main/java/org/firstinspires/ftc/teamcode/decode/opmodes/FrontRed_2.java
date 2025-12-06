@@ -70,7 +70,7 @@ public class FrontRed_2 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, 64,-131, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, 64,-125, false)
                     )
             );
 
@@ -120,7 +120,7 @@ public class FrontRed_2 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, 64,-121, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, 64,-125, false)
                     )
             );
 

@@ -38,8 +38,8 @@ public class OutputAngleServo {
                outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_2_AUTON);
             } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_3_AUTON)){
                 outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_3_AUTON);
-            } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_3)){
-                outputAngleServo.setPosition(0);
+            } else if(launchLocation.equals(Constants.RED_LAUNCH_LOCATION_1_AUTON)){
+                outputAngleServo.setPosition(Constants.DEFAULT_OUTPUT_ANGLE_POSITION_1_AUTON);
             }
             return false;
         }

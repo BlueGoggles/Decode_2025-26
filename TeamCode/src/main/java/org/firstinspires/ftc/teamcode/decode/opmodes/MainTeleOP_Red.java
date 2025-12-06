@@ -8,6 +8,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
@@ -229,10 +230,13 @@ public class MainTeleOP_Red extends LinearOpMode {
                 if (gamepad1.right_bumper) {
                     Actions.runBlocking(
                             new ParallelAction(
-                                    intakeMotor.startIntake(),
-                                    intakeBeltMotor.startIntakeBeltMotor()
+                                    intakeMotor.startIntake()
+//                                    ,
+//                                    intakeBeltMotor.startIntakeBeltMotor()
                             )
                     );
+                    intakeBeltMotor.getIntakeBeltMotor().setDirection(DcMotorSimple.Direction.REVERSE);
+                    intakeBeltMotor.getIntakeBeltMotor().setPower(0.5);
                 }
 
                 if (gamepad1.left_bumper) {

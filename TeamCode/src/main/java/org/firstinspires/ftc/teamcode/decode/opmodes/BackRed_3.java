@@ -71,7 +71,7 @@ public class BackRed_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -5, -36, -136, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -5, -36, -125, false)
                     )
             );
 

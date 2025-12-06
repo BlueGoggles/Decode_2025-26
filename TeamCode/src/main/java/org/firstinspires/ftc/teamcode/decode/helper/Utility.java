@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltMotor;
@@ -58,12 +59,13 @@ public class Utility {
                 )
         );
 
-        opMode.wait(500);
+        opMode.wait(750);
         Actions.runBlocking(
                 new ParallelAction(
                         intakeMotor.startIntake()
                 )
         );
+        intakeBeltMotor.getIntakeBeltMotor().setDirection(DcMotorSimple.Direction.REVERSE);
         intakeBeltMotor.getIntakeBeltMotor().setPower(0.7);
     }
 
@@ -108,7 +110,7 @@ public class Utility {
         );
         Utility.drive(drive, 0.5);
 
-        opMode.wait(1330);
+        opMode.wait(1300);
 
         Actions.runBlocking(
                 new SequentialAction(
