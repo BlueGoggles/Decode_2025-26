@@ -66,28 +66,35 @@ public class Utility {
                 )
         );
         intakeBeltMotor.getIntakeBeltMotor().setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeBeltMotor.getIntakeBeltMotor().setPower(0.7);
+        intakeBeltMotor.getIntakeBeltMotor().setPower(0.5);
+    }
+
+    public static void drive(MecanumDrive drive, double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower) {
+        drive.leftFront.setPower(leftFrontPower);
+        drive.rightFront.setPower(rightFrontPower);
+        drive.leftBack.setPower(leftBackPower);
+        drive.rightBack.setPower(rightBackPower);
     }
 
     public static void drive(MecanumDrive drive, double power) {
-        drive.leftFront.setPower(power);
-        drive.rightFront.setPower(power);
-        drive.leftBack.setPower(power);
-        drive.rightBack.setPower(power);
+        drive(drive, power, power, power, power);
     }
 
-    public static void autonIntake(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive) throws InterruptedException {
+    public static void autonIntake(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive, int intakeWaitTime) throws InterruptedException {
         Actions.runBlocking(
                 new SequentialAction(
-//                        kickerServo.stopKickerServo(),
                         shooter.stopShooter(),
                         intakeMotor.startIntake(),
                         intakeBeltMotor.startIntakeBeltMotor()
                 )
         );
-        Utility.drive(drive, 0.5);
+        Utility.drive(drive, 1.0);
 
-        opMode.wait(1500);
+        opMode.wait(intakeWaitTime);
+
+        Utility.drive(drive, 0);
+
+        opMode.wait(500);
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -99,27 +106,37 @@ public class Utility {
 
     }
 
-    public static void autonIntakeForBack(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive) throws InterruptedException {
+    public static void autonIntakeForBack(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive, int intakeWaitTime) throws InterruptedException {
         Actions.runBlocking(
                 new SequentialAction(
-//                        kickerServo.stopKickerServo(),
                         shooter.stopShooter(),
                         intakeMotor.startIntake(),
                         intakeBeltMotor.startIntakeBeltMotor()
                 )
         );
-        Utility.drive(drive, 0.5);
+        Utility.drive(drive, 1.0);
 
-        opMode.wait(1300);
+        opMode.wait(intakeWaitTime);
 
         Actions.runBlocking(
                 new SequentialAction(
                         intakeBeltMotor.stopIntakeBeltMotor()
                 )
         );
+    }
 
+    public static void release(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {
+        double speed = 0.5;
 
-
+        drive(drive, -speed);
+        opMode.wait(500);
+//        drive(drive, -speed, speed, speed, -speed); // Left strafe
+        drive(drive, speed, -speed, -speed, speed); // Right strafe
+        opMode.wait(300);
+        drive(drive, speed);
+        opMode.wait(500);
+        drive(drive, 0);
+        opMode.wait(1000);
     }
 
 }

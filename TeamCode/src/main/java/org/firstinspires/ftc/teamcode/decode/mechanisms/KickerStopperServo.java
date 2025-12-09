@@ -14,9 +14,9 @@ public class KickerStopperServo {
     private Servo kickerStopperServo;
 
     public KickerStopperServo(HardwareMap hardwareMap) {
-        kickerStopperServo = hardwareMap.get(Servo.class, "kickerStopperServo");
-        kickerStopperServo.setDirection(Servo.Direction.REVERSE);
-        kickerStopperServo.setPosition(0);
+//        kickerStopperServo = hardwareMap.get(Servo.class, "kickerStopperServo");
+//        kickerStopperServo.setDirection(Servo.Direction.REVERSE);
+//        kickerStopperServo.setPosition(0);
     }
 
     public class KickerStopperServoOn implements Action {

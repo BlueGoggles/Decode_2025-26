@@ -38,44 +38,14 @@ public class FrontBlue_1 extends LinearOpMode {
 
         waitForStart();
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
-                        shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
-                )
-        );
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, -5, 16, -70, true)
+                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, -5, 0, 180, true)
                 )
         );
 
-        Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
 
-        if (Constants.PICK_BALLS_LINE_3_FLAG) {
-            Actions.runBlocking(
-                    new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 25, 180, false)
-                    )
-            );
 
-            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
-
-            Actions.runBlocking(
-                    new SequentialAction(
-                            outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
-                            shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
-                    )
-            );
-
-            Actions.runBlocking(
-                    new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, -5, 16, -70, false)
-                    )
-            );
-
-            Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
-        }
     }
 }

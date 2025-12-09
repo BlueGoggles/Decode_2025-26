@@ -59,7 +59,7 @@ public class FrontRed_2 extends LinearOpMode {
                     )
             );
 
-            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
+            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_1_INTAKE_WAIT_TIME);
 
             Actions.runBlocking(
                     new SequentialAction(
@@ -84,7 +84,7 @@ public class FrontRed_2 extends LinearOpMode {
                     )
             );
 
-            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
+            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_2_INTAKE_WAIT_TIME);
 
             Actions.runBlocking(
                     new SequentialAction(
@@ -109,7 +109,7 @@ public class FrontRed_2 extends LinearOpMode {
                     )
             );
 
-            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive);
+            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_3_INTAKE_WAIT_TIME);
 
             Actions.runBlocking(
                     new SequentialAction(
