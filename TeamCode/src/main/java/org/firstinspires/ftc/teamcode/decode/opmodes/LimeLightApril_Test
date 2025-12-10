@@ -1,0 +1,44 @@
+package org.firstinspires.ftc.teamcode.decode.opmodes;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+@Config
+@Autonomous(name = "LimeLight Test", group = "DecodeAutonomous")
+public class LimeLightApril_Test extends LinearOpMode {
+
+    private LimeLight3A limelight3A;
+
+    @Override
+    public synchronized void runOpMode() throws InterruptedException {
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(-90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+        IntakeMotor intakeMotor = new IntakeMotor(hardwareMap);
+        IntakeBeltMotor intakeBeltMotor = new IntakeBeltMotor(hardwareMap);
+        Shooter shooter = new Shooter(hardwareMap);
+        KickerServo kickerServo = new KickerServo(hardwareMap);
+        OutputAngleServo outputAngleServo = new OutputAngleServo(hardwareMap);
+//        KickerStopperServo kickerStopperServo = new KickerStopperServo(hardwareMap);
+
+        TrajectoryActions trajectoryActions = new TrajectoryActions();
+
+         limelight3A = hardwareMap.get(Limelight3A.class, devicename: "limelight");
+         limelight3A.pipelineSwitch(index:8);// april tag 12 pipeline
+
+         limelight3A.start();
+
+        waitForStart();
+
+        LLResult llResult = limelight3A.getLatestResult();
+        if (llResult != null && llResult.isValid()) {
+          Pose 3D botpose = llResult.getBotpose();
+            telemetry.addData( caption: "Target X", llResult.getTx());
+        telemetry.addData( caption: "Target Y", llResult.getTy());
+        telemetry.addData( caption: "Target Area", llResult.getTa());
+        telemetry.addData( caption: "BotPose", botpose.toString());
+          telemetry.addData( caption: "Yaw", botpose.getOrientation().getYaw());
+
+
+    }
+}
