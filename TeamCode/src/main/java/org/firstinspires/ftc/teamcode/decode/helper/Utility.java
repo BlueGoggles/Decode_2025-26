@@ -101,9 +101,6 @@ public class Utility {
                         intakeBeltMotor.stopIntakeBeltMotor()
                 )
         );
-
-
-
     }
 
     public static void autonIntakeForBack(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive, int intakeWaitTime) throws InterruptedException {
@@ -118,11 +115,49 @@ public class Utility {
 
         opMode.wait(intakeWaitTime);
 
+        Utility.drive(drive, 0);
+
+        opMode.wait(500);
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeMotor.stopIntake(),
+                        intakeBeltMotor.stopIntakeBeltMotor()
+                )
+        );
+    }
+
+    public static void autonIntakeHumanArea(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive, int intakeWaitTime) throws InterruptedException {
+        double speed = 0.5;
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        shooter.stopShooter(),
+                        intakeMotor.startIntake(),
+                        intakeBeltMotor.startIntakeBeltMotor()
+                )
+        );
+        Utility.drive(drive, 0.5);
+
+        opMode.wait(400);
+        drive(drive, speed, -speed, -speed, speed); // Right strafe
+        opMode.wait(200);
+        Utility.drive(drive, speed);
+        opMode.wait(400);
+        drive(drive, -speed, speed, speed, -speed); // Left strafe
+        opMode.wait(300);
+        Utility.drive(drive, speed);
+        opMode.wait(400);
+
+
         Actions.runBlocking(
                 new SequentialAction(
                         intakeBeltMotor.stopIntakeBeltMotor()
                 )
         );
+
+
+
     }
 
     public static void release(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {
@@ -139,4 +174,17 @@ public class Utility {
         opMode.wait(1000);
     }
 
+    public static void releaseForBack(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {
+        double speed = 0.5;
+
+        drive(drive, -speed);
+        opMode.wait(300);
+//        drive(drive, -speed, speed, speed, -speed); // Left strafe
+        drive(drive, speed, -speed, -speed, speed); // Right strafe
+        opMode.wait(350);
+        drive(drive, speed);
+        opMode.wait(300);
+        drive(drive, 0);
+        opMode.wait(1000);
+    }
 }

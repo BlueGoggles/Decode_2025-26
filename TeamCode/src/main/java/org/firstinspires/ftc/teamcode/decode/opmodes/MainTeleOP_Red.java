@@ -236,7 +236,7 @@ public class MainTeleOP_Red extends LinearOpMode {
                             )
                     );
                     intakeBeltMotor.getIntakeBeltMotor().setDirection(DcMotorSimple.Direction.REVERSE);
-                    intakeBeltMotor.getIntakeBeltMotor().setPower(0.5);
+                    intakeBeltMotor.getIntakeBeltMotor().setPower(0.7);
                 }
 
                 if (gamepad1.left_bumper) {
