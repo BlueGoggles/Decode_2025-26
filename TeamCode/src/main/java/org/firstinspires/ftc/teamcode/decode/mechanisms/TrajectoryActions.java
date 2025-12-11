@@ -24,4 +24,12 @@ public class TrajectoryActions {
 
          return builder.build();
      }
+
+    public Action turn(MecanumDrive drive, double angle){
+
+        TrajectoryActionBuilder builder = drive.actionBuilder(drive.localizer.getPose())
+                .turnTo(Math.toRadians(angle));
+
+        return builder.build();
+    }
 }

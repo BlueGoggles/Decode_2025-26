@@ -6,7 +6,9 @@ public interface Constants {
     boolean PICK_BALLS_LINE_2_FLAG = true;
     boolean PICK_BALLS_LINE_3_FLAG = true;
 
-    boolean PICK_FROM_HUMAN_AREA_FLAG = true;
+    boolean PICK_FROM_HUMAN_AREA_FLAG_1 = true;
+    boolean PICK_FROM_HUMAN_AREA_FLAG_2 = true;
+    boolean PICK_FROM_HUMAN_AREA_FLAG_3 = true;
 
     boolean RELEASE_FLAG = true;
 
@@ -32,7 +34,7 @@ public interface Constants {
     double DEFAULT_OUTPUT_ANGLE_POSITION_2 = 0.47;
     double DEFAULT_OUTPUT_ANGLE_POSITION_3 = 0.435;
 
-    double DEFAULT_OUTPUT_ANGLE_POSITION_1_AUTON = 0.49;
+    double DEFAULT_OUTPUT_ANGLE_POSITION_1_AUTON = 0.52;
     double DEFAULT_OUTPUT_ANGLE_POSITION_2_AUTON = 0.47;
     double DEFAULT_OUTPUT_ANGLE_POSITION_3_AUTON = 0.435;
 

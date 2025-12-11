@@ -6,7 +6,6 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
@@ -15,14 +14,13 @@ import org.firstinspires.ftc.teamcode.decode.helper.Utility;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeBeltMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.IntakeMotor;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerServo;
-import org.firstinspires.ftc.teamcode.decode.mechanisms.KickerStopperServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.OutputAngleServo;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "Front Blue - Position 1", group = "DecodeAutonomous")
-public class FrontBlue_1 extends LinearOpMode {
+@Autonomous(name = "Front Red - Position 1", group = "DecodeAutonomous")
+public class FrontRed_1 extends LinearOpMode {
 
     @Override
     public synchronized void runOpMode() throws InterruptedException {

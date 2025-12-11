@@ -16,39 +16,18 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 public class Utility {
 
     public static void shoot(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        outputAngleServo.setOutputAngle(launchLocation),
-//                        shooter.startShooter(shooterSpeed)
-//                )
-//        );
-//        wait(500);
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        kickerStopperServo.kickerStopperServoOff()
-//                )
-//        );
-//        opMode.wait(500);
         Actions.runBlocking(
                 new ParallelAction(
                         intakeMotor.startIntake(),
                         intakeBeltMotor.startIntakeBeltMotor()
-//                        kickerServo.startKickerServo(kickerServo.getKickerServo().getPosition() + 0.13)
                 )
         );
         opMode.wait(2000);
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        kickerServo.startKickerServo(kickerServo.getKickerServo().getPosition() + 0.1)
-//                )
-//        );
-//        opMode.wait(2000);
-//
-//        Actions.runBlocking(
-//                new SequentialAction(
-//                        kickerServo.startKickerServo(Constants.KICKER_SERVO_HOME_POSITION)
-//                )
-//        );
+        Actions.runBlocking(
+                new SequentialAction(
+                        shooter.stopShooter()
+                )
+        );
     }
 
     public static void shootTeleOp(LinearOpMode opMode, OutputAngleServo outputAngleServo, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, int shooterSpeed, String launchLocation) throws InterruptedException {
@@ -117,11 +96,10 @@ public class Utility {
 
         Utility.drive(drive, 0);
 
-        opMode.wait(500);
+        opMode.wait(525);
 
         Actions.runBlocking(
                 new SequentialAction(
-                        intakeMotor.stopIntake(),
                         intakeBeltMotor.stopIntakeBeltMotor()
                 )
         );
@@ -137,17 +115,26 @@ public class Utility {
                         intakeBeltMotor.startIntakeBeltMotor()
                 )
         );
-        Utility.drive(drive, 0.5);
+        Utility.drive(drive, speed);
+        opMode.wait(350);
 
-        opMode.wait(400);
+        Utility.drive(drive, -speed);
+        opMode.wait(50);
+
         drive(drive, speed, -speed, -speed, speed); // Right strafe
-        opMode.wait(200);
+        opMode.wait(150);
+
         Utility.drive(drive, speed);
-        opMode.wait(400);
+        opMode.wait(350);
+
+        Utility.drive(drive, -speed);
+        opMode.wait(50);
+
         drive(drive, -speed, speed, speed, -speed); // Left strafe
-        opMode.wait(300);
-        Utility.drive(drive, speed);
         opMode.wait(400);
+
+        Utility.drive(drive, speed);
+        opMode.wait(350);
 
 
         Actions.runBlocking(
@@ -186,5 +173,33 @@ public class Utility {
         opMode.wait(300);
         drive(drive, 0);
         opMode.wait(1000);
+    }
+
+    public static void releaseForRed(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {
+        double speed = 0.5;
+
+        drive(drive, -speed);
+        opMode.wait(500);
+        drive(drive, -speed, speed, speed, -speed); // Left strafe
+//        drive(drive, speed, -speed, -speed, speed); // Right strafe
+        opMode.wait(300);
+        drive(drive, speed);
+        opMode.wait(500);
+        drive(drive, 0);
+        opMode.wait(1000);
+    }
+
+    public static void releaseForBackForRed(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {
+        double speed = 0.5;
+
+        drive(drive, -speed);
+        opMode.wait(320);
+        drive(drive, -speed, speed, speed, -speed); // Left strafe
+//        drive(drive, speed, -speed, -speed, speed); // Right strafe
+        opMode.wait(370);
+        drive(drive, speed);
+        opMode.wait(310);
+        drive(drive, 0);
+        opMode.wait(900);
     }
 }
