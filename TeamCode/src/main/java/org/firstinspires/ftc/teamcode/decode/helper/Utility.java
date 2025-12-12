@@ -142,9 +142,45 @@ public class Utility {
                         intakeBeltMotor.stopIntakeBeltMotor()
                 )
         );
+    }
+
+    public static void autonIntakeHumanAreaForRed(LinearOpMode opMode, Shooter shooter, IntakeMotor intakeMotor, IntakeBeltMotor intakeBeltMotor, KickerServo kickerServo, MecanumDrive drive, int intakeWaitTime) throws InterruptedException {
+        double speed = 0.5;
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        shooter.stopShooter(),
+                        intakeMotor.startIntake(),
+                        intakeBeltMotor.startIntakeBeltMotor()
+                )
+        );
+        Utility.drive(drive, speed);
+        opMode.wait(350);
+
+        Utility.drive(drive, -speed);
+        opMode.wait(50);
+
+        drive(drive, -speed, speed, speed, -speed); // Left strafe
+        opMode.wait(150);
+
+        Utility.drive(drive, speed);
+        opMode.wait(350);
+
+        Utility.drive(drive, -speed);
+        opMode.wait(50);
+
+        drive(drive, speed, -speed, -speed, speed); // Right strafe
+        opMode.wait(400);
+
+        Utility.drive(drive, speed);
+        opMode.wait(350);
 
 
-
+        Actions.runBlocking(
+                new SequentialAction(
+                        intakeBeltMotor.stopIntakeBeltMotor()
+                )
+        );
     }
 
     public static void release(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {

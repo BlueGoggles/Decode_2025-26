@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "Front Red - Position 1", group = "DecodeAutonomous")
+@Autonomous(name = "Front Red - Position 1", group = "FrontRed_DecodeAutonomous")
 public class FrontRed_1 extends LinearOpMode {
 
     @Override
@@ -47,7 +47,7 @@ public class FrontRed_1 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, -90, 0, 7, -68, true)
+                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, -90, 0, 7, -112, true)
                 )
         );
 
@@ -57,15 +57,28 @@ public class FrontRed_1 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -33, -4, 180, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 27, 2, 0, false)
                     )
             );
 
             double speed = 0.5;
-            Utility.drive(drive, -speed, speed, speed, -speed); // Left strafe
+            Utility.drive(drive, speed, -speed, -speed, speed); // Right strafe
             wait(400);
 
-            Utility.autonIntakeHumanArea(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.HUMAN_AREA_INTAKE_WAIT_TIME);
+            Utility.autonIntakeHumanAreaForRed(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.HUMAN_AREA_INTAKE_WAIT_TIME);
+
+            Actions.runBlocking(
+                    new ParallelAction(
+                            shooter.reverseShooter(),
+                            intakeBeltMotor.reverseIntakeBeltMotor()
+                    )
+            );
+
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 7, -112, false)
+                    )
+            );
 
             Actions.runBlocking(
                     new SequentialAction(
@@ -73,12 +86,7 @@ public class FrontRed_1 extends LinearOpMode {
                             shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
                     )
             );
-
-            Actions.runBlocking(
-                    new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 7, -70, false)
-                    )
-            );
+            wait(1400);
 
             Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
         }
@@ -86,7 +94,7 @@ public class FrontRed_1 extends LinearOpMode {
         if (Constants.PICK_BALLS_LINE_3_FLAG) {
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 15, 186, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 3, 22, 5, false)
                     )
             );
 
@@ -101,15 +109,9 @@ public class FrontRed_1 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 7, -35, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 7, -130, false)
                     )
             );
-//            wait(2000);
-//            Actions.runBlocking(
-//                    new SequentialAction(
-//                            trajectoryActions.turn(drive, -70)
-//                    )
-//            );
 
             Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
         }
@@ -118,15 +120,15 @@ public class FrontRed_1 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -28, -4, 180, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 23, 2, 0, false)
                     )
             );
 
             double speed = 0.5;
-            Utility.drive(drive, -speed, speed, speed, -speed); // Left strafe
+            Utility.drive(drive, speed, -speed, -speed, speed); // Right strafe
             wait(400);
 
-            Utility.autonIntakeHumanArea(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.HUMAN_AREA_INTAKE_WAIT_TIME);
+            Utility.autonIntakeHumanAreaForRed(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.HUMAN_AREA_INTAKE_WAIT_TIME);
 
             Actions.runBlocking(
                     new ParallelAction(
@@ -137,7 +139,7 @@ public class FrontRed_1 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 9, -70, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 9, -112, false)
                     )
             );
             Actions.runBlocking(
@@ -146,7 +148,7 @@ public class FrontRed_1 extends LinearOpMode {
                             shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
                     )
             );
-            wait(1000);
+            wait(1400);
 
             Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
         }
@@ -155,44 +157,21 @@ public class FrontRed_1 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -33, -4, 180, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 27, 2, 0, false)
                     )
             );
 
             double speed = 0.5;
-            Utility.drive(drive, -speed, speed, speed, -speed); // Left strafe
+            Utility.drive(drive, speed, -speed, -speed, speed); // Right strafe
             wait(400);
 
-            Utility.autonIntakeHumanArea(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.HUMAN_AREA_INTAKE_WAIT_TIME);
+            Utility.autonIntakeHumanAreaForRed(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.HUMAN_AREA_INTAKE_WAIT_TIME);
 
-//            Actions.runBlocking(
-//                    new SequentialAction(
-//                            outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
-//                            shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
-//                    )
-//            );
-
-//            Actions.runBlocking(
-//                    new SequentialAction(
-//                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 7, -70, false)
-//                    )
-//            );
-
-//            Actions.runBlocking(
-//                    new SequentialAction(
-//                            outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
-//                            shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
-//                    )
-//            );
-
-//            wait(1000);
-//
-//            Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
-        }
+       }
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, 4, 180, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 3, 4, 0, false)
                 )
         );
 

@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "Back Red - Position 3", group = "DecodeAutonomous")
+@Autonomous(name = "Back Red - Position 3", group = "BackRed_DecodeAutonomous")
 public class BackRed_3 extends LinearOpMode {
 
     @Override

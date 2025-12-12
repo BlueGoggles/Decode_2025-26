@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.decode.mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.decode.mechanisms.TrajectoryActions;
 
 @Config
-@Autonomous(name = "Front Blue - Just Move", group = "DecodeAutonomous")
-public class FrontBlue_JustMove extends LinearOpMode {
+@Autonomous(name = "Front Blue - Just Leave", group = "FrontBlue_DecodeAutonomous")
+public class FrontBlue_JustLeave extends LinearOpMode {
 
     @Override
     public synchronized void runOpMode() throws InterruptedException {
