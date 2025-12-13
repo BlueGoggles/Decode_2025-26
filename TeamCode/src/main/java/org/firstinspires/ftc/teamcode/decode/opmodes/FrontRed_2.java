@@ -44,11 +44,20 @@ public class FrontRed_2 extends LinearOpMode {
                 )
         );
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 10, 64, -131, true)
-                )
-        );
+        if (Constants.PUSH_ALLIANCE_ROBOT_FLAG) {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 15, 0, 0, true),
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, 64, -131, false)
+                    )
+            );
+        } else {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 0, 10, 64, -131, true)
+                    )
+            );
+        }
 
         Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
 
@@ -80,7 +89,7 @@ public class FrontRed_2 extends LinearOpMode {
         if (Constants.PICK_BALLS_LINE_2_FLAG) {
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 6, 45,-5, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 11, 45,-5, false)
                     )
             );
 
@@ -105,7 +114,7 @@ public class FrontRed_2 extends LinearOpMode {
         if (Constants.PICK_BALLS_LINE_3_FLAG) {
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 6, 26,-5, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 11, 26,-5, false)
                     )
             );
 

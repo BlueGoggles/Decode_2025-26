@@ -46,7 +46,7 @@ public class BackBlue_3 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 13, -27, -48, true)
+                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 7, -26, -47, true)
                 )
         );
 
@@ -56,7 +56,7 @@ public class BackBlue_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, -67, 185, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 11, -67, 185, false)
                     )
             );
             Utility.autonIntakeForBack(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_2_INTAKE_WAIT_TIME);
@@ -74,7 +74,7 @@ public class BackBlue_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 13, -27, -48, false)
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 7, -26, -47, false)
                     )
             );
 
@@ -100,7 +100,7 @@ public class BackBlue_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 13, -27, -48, false)
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 7, -26, -47, false)
                     )
             );
 
@@ -111,7 +111,7 @@ public class BackBlue_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 12, -87, 180, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, -87, 180, false)
                     )
             );
             Utility.autonIntakeForBack(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_3_INTAKE_WAIT_TIME);
@@ -126,7 +126,7 @@ public class BackBlue_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 13, -27, -48, false)
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, 180, 7, -26, -47, false)
                     )
             );
 
@@ -135,7 +135,7 @@ public class BackBlue_3 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, -45,180, false)
+                        trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 10, -50,162.5, false)
                 )
         );
     }

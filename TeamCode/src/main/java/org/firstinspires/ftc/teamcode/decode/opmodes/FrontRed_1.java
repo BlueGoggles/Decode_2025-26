@@ -109,12 +109,39 @@ public class FrontRed_1 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 7, -130, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 9, -145, false),
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 9, -112, false)
                     )
             );
 
             Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
         }
+
+//        if (Constants.PICK_BALLS_LINE_2_FLAG) {
+//            Actions.runBlocking(
+//                    new SequentialAction(
+//                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 3, 40, 5, false)
+//                    )
+//            );
+//
+//            Utility.autonIntake(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_2_INTAKE_WAIT_TIME);
+//
+//            Actions.runBlocking(
+//                    new SequentialAction(
+//                            outputAngleServo.setOutputAngle(Constants.RED_LAUNCH_LOCATION_1_AUTON),
+//                            shooter.startShooter(Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON)
+//                    )
+//            );
+//
+//            Actions.runBlocking(
+//                    new SequentialAction(
+//                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 9, -112, false),
+//                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, 0, 9, -112, false)
+//                    )
+//            );
+//
+//            Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_1_AUTON, Constants.RED_LAUNCH_LOCATION_1_AUTON);
+//        }
 
         if (Constants.PICK_FROM_HUMAN_AREA_FLAG_2) {
 

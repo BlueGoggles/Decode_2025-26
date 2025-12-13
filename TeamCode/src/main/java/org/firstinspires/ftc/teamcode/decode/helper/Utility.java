@@ -22,7 +22,11 @@ public class Utility {
                         intakeBeltMotor.startIntakeBeltMotor()
                 )
         );
-        opMode.wait(2000);
+        if (launchLocation.equalsIgnoreCase(Constants.RED_LAUNCH_LOCATION_1_AUTON)) {
+            opMode.wait(2000);
+        } else {
+            opMode.wait(1600);
+        }
         Actions.runBlocking(
                 new SequentialAction(
                         shooter.stopShooter()
@@ -96,7 +100,7 @@ public class Utility {
 
         Utility.drive(drive, 0);
 
-        opMode.wait(525);
+        opMode.wait(500);
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -187,28 +191,28 @@ public class Utility {
         double speed = 0.5;
 
         drive(drive, -speed);
-        opMode.wait(500);
+        opMode.wait(320);
 //        drive(drive, -speed, speed, speed, -speed); // Left strafe
         drive(drive, speed, -speed, -speed, speed); // Right strafe
-        opMode.wait(300);
+        opMode.wait(350);
         drive(drive, speed);
-        opMode.wait(500);
+        opMode.wait(320);
         drive(drive, 0);
-        opMode.wait(1000);
+        opMode.wait(800);
     }
 
     public static void releaseForBack(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {
         double speed = 0.5;
 
         drive(drive, -speed);
-        opMode.wait(300);
+        opMode.wait(320);
 //        drive(drive, -speed, speed, speed, -speed); // Left strafe
         drive(drive, speed, -speed, -speed, speed); // Right strafe
-        opMode.wait(350);
+        opMode.wait(410);
         drive(drive, speed);
-        opMode.wait(300);
+        opMode.wait(310);
         drive(drive, 0);
-        opMode.wait(1000);
+        opMode.wait(700);
     }
 
     public static void releaseForRed(LinearOpMode opMode, MecanumDrive drive) throws InterruptedException {

@@ -8,7 +8,9 @@ public interface Constants {
 
     boolean PICK_FROM_HUMAN_AREA_FLAG_1 = true;
     boolean PICK_FROM_HUMAN_AREA_FLAG_2 = true;
-    boolean PICK_FROM_HUMAN_AREA_FLAG_3 = true;
+    boolean PICK_FROM_HUMAN_AREA_FLAG_3 = false;
+
+    boolean PUSH_ALLIANCE_ROBOT_FLAG = false;
 
     boolean RELEASE_FLAG = true;
 

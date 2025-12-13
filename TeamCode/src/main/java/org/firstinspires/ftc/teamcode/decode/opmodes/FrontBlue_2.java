@@ -44,11 +44,20 @@ public class FrontBlue_2 extends LinearOpMode {
                 )
         );
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        trajectoryActions.getTrajectory_1_1(drive, 0, 0, -90, -2, 64, -50, true)
-                )
-        );
+        if (Constants.PUSH_ALLIANCE_ROBOT_FLAG) {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, -90, -15, 0, -90, true),
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -2, 64, -50, false)
+                    )
+            );
+        } else {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectoryActions.getTrajectory_1_1(drive, 0, 0, -90, -2, 64, -50, true)
+                    )
+            );
+        }
 
         Utility.shoot(this, outputAngleServo, shooter, intakeMotor, intakeBeltMotor, kickerServo, Constants.DEFAULT_SHOOTER_VELOCITY_POSITION_2_AUTON, Constants.RED_LAUNCH_LOCATION_2_AUTON);
 
