@@ -100,7 +100,7 @@ public class Utility {
 
         Utility.drive(drive, 0);
 
-        opMode.wait(500);
+        opMode.wait(510);
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -233,12 +233,12 @@ public class Utility {
         double speed = 0.5;
 
         drive(drive, -speed);
-        opMode.wait(320);
+        opMode.wait(340);
         drive(drive, -speed, speed, speed, -speed); // Left strafe
 //        drive(drive, speed, -speed, -speed, speed); // Right strafe
-        opMode.wait(370);
+        opMode.wait(425);
         drive(drive, speed);
-        opMode.wait(310);
+        opMode.wait(365);
         drive(drive, 0);
         opMode.wait(900);
     }

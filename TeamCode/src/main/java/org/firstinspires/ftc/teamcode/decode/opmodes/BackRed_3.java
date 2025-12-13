@@ -56,10 +56,10 @@ public class BackRed_3 extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -10, -67, 0, false)
+                            trajectoryActions.getTrajectory_1_1(drive, -1, -1, -1, -8, -67, 3, false)
                     )
             );
-            Utility.autonIntakeForBack(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, Constants.LINE_2_INTAKE_WAIT_TIME);
+            Utility.autonIntakeForBack(this, shooter, intakeMotor, intakeBeltMotor, kickerServo, drive, 670);
 
             if (Constants.RELEASE_FLAG) {
                 Utility.releaseForBackForRed(this, drive);
